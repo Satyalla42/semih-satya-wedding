@@ -249,6 +249,17 @@
       width: 100%;
       border-radius: 20px;
       box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .story-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      background: transparent;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     /* Schedule Section */
@@ -439,6 +450,19 @@
       .story-content {
         grid-template-columns: 1fr;
         gap: 30px;
+      }
+
+      .story-image {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .story-image img {
+        width: 100%;
+        height: auto;
+        min-height: 200px;
+        object-fit: contain;
+        display: block;
       }
 
       .section {
@@ -694,6 +718,22 @@
         font-size: 1.25rem;
       }
 
+      .story-image {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .story-image img {
+        width: 100%;
+        height: auto;
+        min-height: 250px;
+        max-height: 400px;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+        background: transparent;
+      }
+
       .gallery-grid {
         grid-template-columns: 1fr 1fr;
         gap: 10px;
@@ -827,7 +867,7 @@
           <p>Trotz ihrer unterschiedlichen Hintergründe haben sie schnell erkannt, dass sie viel gemeinsam haben. Von diesem ersten Date an wurden sie unzertrennlich und der Rest ist Geschichte!</p>
         </div>
         <div class="story-image">
-          <img src="background_img_proposal.png" alt="Unser Antrag" style="width: 100%; border-radius: 20px; box-shadow: var(--shadow);">
+          <img src="background_img_proposal.png" alt="Unser Antrag" loading="eager" decoding="async">
         </div>
       </div>
     </div>
