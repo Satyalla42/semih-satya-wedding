@@ -124,9 +124,21 @@
       padding: 100px 20px 50px;
       position: relative;
       background: var(--dark-bg);
-      background: url('Untitled design.png') no-repeat center center fixed;
+      background: url('Untitled design.png') no-repeat center center;
       background-size: cover;
+      background-attachment: fixed;
     }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('Untitled design.png') center center / cover no-repeat;
+      z-index: -1;
+    }
+
+
+    
 
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
@@ -373,10 +385,16 @@
       box-shadow: var(--shadow);
     }
 
-    .submit-btn:hover {
+    .submit-btn:hover:not(:disabled) {
       background: var(--lavender-accent);
       transform: translateY(-2px);
       box-shadow: var(--shadow-hover);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
     }
 
     /* Footer */
@@ -390,12 +408,28 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+      }
+
       .nav-links {
         display: none;
       }
 
       .mobile-menu {
         display: flex;
+      }
+
+      .hero {
+        background-attachment: scroll;
+        background-position: center center;
+        min-height: 90vh;
+      }
+
+      .hero::before {
+        background-attachment: scroll;
+        background-position: center center;
+        position: absolute;
       }
 
       .hero-content h1 {
@@ -411,8 +445,44 @@
         padding: 50px 0;
       }
 
+      .section-title {
+        font-size: 2rem;
+      }
+
       .rsvp-content {
         padding: 30px 20px;
+      }
+
+      .countdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .countdown-item {
+        padding: 15px 10px;
+      }
+
+      .countdown-number {
+        font-size: 2rem;
+      }
+
+      .wedding-selector {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .wedding-selector button {
+        width: 100%;
+        max-width: 280px;
+        margin: 0;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+      }
+
+      .schedule-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -527,6 +597,166 @@
       background: var(--lavender-light);
       color: var(--dark-bg);
     }
+    /* Extra Mobile Tweaks */
+    @media (max-width: 480px) {
+      .hero {
+        background-attachment: scroll;
+        background-position: center center;
+        background-size: cover;
+        padding: 80px 15px 40px;
+        min-height: 85vh;
+      }
+
+      .hero::before {
+        background-attachment: scroll;
+        background-position: center center;
+        background-size: cover;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+
+      .hero-content h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 15px;
+      }
+
+      .hero-content .date {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
+
+      .countdown-container {
+        margin: 25px 0;
+      }
+
+      .countdown-title {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+      }
+
+      .countdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .countdown-item {
+        padding: 12px 8px;
+      }
+
+      .countdown-number {
+        font-size: 1.8rem;
+      }
+
+      .countdown-label {
+        font-size: 0.75rem;
+      }
+
+      .wedding-selector {
+        margin: 15px 0;
+      }
+
+      .wedding-selector button {
+        font-size: 0.85rem;
+        padding: 10px 14px;
+      }
+
+      .cta-button {
+        padding: 10px 20px;
+        font-size: 12px;
+        margin-top: 10px;
+      }
+
+      .section {
+        padding: 40px 0;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+        margin-bottom: 30px;
+      }
+
+      .story-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .story-text {
+        font-size: 1rem;
+      }
+
+      .story-text h3 {
+        font-size: 1.25rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .gallery-item img {
+        height: 150px;
+      }
+
+      .rsvp-content {
+        padding: 20px 15px;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        font-size: 16px; /* Prevents iOS zoom */
+      }
+
+      .submit-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
+
+      /* Mobile menu overlay style */
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.95);
+        padding: 20px;
+        gap: 15px;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .mobile-menu {
+        z-index: 1200;
+      }
+
+      .mobile-menu span {
+        background: var(--lavender-light);
+      }
+
+      .navbar {
+        padding: 15px 0;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -759,15 +989,26 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
     // Mobile menu toggle
     const mobileMenu = document.querySelector('.mobile-menu');
     const navLinks = document.querySelector('.nav-links');
-    
-    mobileMenu.addEventListener('click', () => {
-      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    });
 
+    mobileMenu.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
 
   document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
+    const submitBtn = form.querySelector('.submit-btn');
+    
+    // Prevent double submission
+    if (submitBtn.disabled) {
+      return;
+    }
+
+    // Disable button and show loading state immediately
+    submitBtn.disabled = true;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Wird gesendet...';
+
     const formData = new FormData(form);
 
     // Optional: convert to JSON payload if needed
@@ -784,23 +1025,47 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
     const fd = new FormData();
     Object.keys(payload).forEach(key => fd.append(key, payload[key]));
 
+    // Create a timeout promise to ensure we show feedback even if request is slow
+    const timeoutPromise = new Promise((resolve) => {
+      setTimeout(() => resolve('timeout'), 1500); // 1.5 second timeout for faster feedback
+    });
+
     try {
-      // Try normal fetch with CORS
-      const res = await fetch(RSVP_ENDPOINT, {
+      // Race between fetch and timeout
+      const fetchPromise = fetch(RSVP_ENDPOINT, {
         method: 'POST',
         body: fd,
         mode: 'cors'
       });
 
+      const result = await Promise.race([fetchPromise, timeoutPromise]);
+
+      if (result === 'timeout') {
+        // Request is taking too long, show success anyway and continue in background
+        alert('Danke! Deine Zusage wurde erhalten. 💜');
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        
+        // Continue sending in background
+        fetch(RSVP_ENDPOINT, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
+        return;
+      }
+
+      const res = result;
       if (!res.ok) throw new Error('Failed to submit RSVP');
 
       alert('Danke! Deine Zusage wurde erhalten. 💜');
       form.reset();
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
     } catch (err) {
       // Fallback: no-cors mode (fire-and-forget)
-      await fetch(RSVP_ENDPOINT, { method: 'POST', body: fd, mode: 'no-cors' });
+      fetch(RSVP_ENDPOINT, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
       alert('Deine Zusage wurde gesendet! Falls du keine Bestätigung siehst, lass es uns bitte wissen.');
       form.reset();
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
     }
   });
 </script>
