@@ -28,12 +28,18 @@
       box-sizing: border-box;
     }
 
+    html {
+      background: url('Untitled design.png') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
     body {
       font-family: 'Source Sans Pro', sans-serif;
       line-height: 1.6;
       color: var(--text-light);
-      background: var(--dark-bg);
-      background-attachment: fixed;
+      background: transparent;
+      min-height: 100vh;
     }
 
     /* Navigation */
@@ -124,18 +130,7 @@
       padding: 100px 20px 50px;
       padding-top: 120px;
       position: relative;
-      background: var(--dark-bg);
-      background: url('Untitled design.png') no-repeat center center;
-      background-size: cover;
-      background-attachment: fixed;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url('Untitled design.png') center center / cover no-repeat;
-      z-index: -1;
+      background: transparent;
     }
 
 
@@ -196,11 +191,12 @@
     /* Section Styling */
     .section {
       padding: 80px 0;
-      background: var(--dark-secondary);
+      background: transparent;
+      position: relative;
     }
 
     .section:nth-child(even) {
-      background: var(--dark-bg);
+      background: transparent;
     }
 
     .section-title {
@@ -413,7 +409,7 @@
 
     /* Footer */
     .footer {
-      background: var(--dark-bg);
+      background: transparent;
       color: var(--lavender-light);
       text-align: center;
       padding: 40px 0;
@@ -422,8 +418,8 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      body {
-        background-attachment: scroll;
+      html {
+        background-attachment: fixed;
       }
 
       .nav-links {
@@ -435,16 +431,8 @@
       }
 
       .hero {
-        background-attachment: scroll;
-        background-position: center center;
         min-height: 90vh;
         padding-top: 100px;
-      }
-
-      .hero::before {
-        background-attachment: scroll;
-        background-position: center center;
-        position: absolute;
       }
 
       .hero-content h1 {
@@ -641,19 +629,15 @@
     }
     /* Extra Mobile Tweaks */
     @media (max-width: 480px) {
+      html {
+        background-attachment: fixed;
+      }
+
       .hero {
-        background-attachment: scroll;
-        background-position: center center;
-        background-size: cover;
         padding: 90px 15px 40px;
         min-height: 85vh;
       }
 
-      .hero::before {
-        background-attachment: scroll;
-        background-position: center center;
-        background-size: cover;
-      }
 
       .hero-content {
         position: relative;
