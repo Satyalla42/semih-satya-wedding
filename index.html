@@ -422,9 +422,10 @@
     @media (max-width: 768px) {
       html {
         background-attachment: fixed;
-        background-size: 120% auto;
+        background-size: 100% 100%;
         background-position: center center;
         background-repeat: no-repeat;
+        height: 100%;
       }
 
       body {
@@ -640,13 +641,15 @@
     @media (max-width: 480px) {
       html {
         background-attachment: fixed;
-        background-size: 150% auto;
+        background-size: 100% 100%;
         background-position: center center;
         background-repeat: no-repeat;
+        height: 100%;
       }
 
       body {
-        background: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.3);
+        min-height: 100vh;
       }
 
       .hero {
