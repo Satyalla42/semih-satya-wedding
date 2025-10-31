@@ -118,10 +118,11 @@
     .hero {
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       text-align: center;
       padding: 100px 20px 50px;
+      padding-top: 120px;
       position: relative;
       background: var(--dark-bg);
       background: url('Untitled design.png') no-repeat center center;
@@ -138,7 +139,9 @@
     }
 
 
-    
+    .hero-content {
+      margin-top: 60px;
+    }
 
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
@@ -435,6 +438,7 @@
         background-attachment: scroll;
         background-position: center center;
         min-height: 90vh;
+        padding-top: 100px;
       }
 
       .hero::before {
@@ -478,30 +482,30 @@
       }
 
       .countdown-container {
-        margin: 20px 0;
+        margin: 15px 0;
       }
 
       .countdown-title {
-        font-size: 1.1rem;
-        margin-bottom: 12px;
+        font-size: 0.95rem;
+        margin-bottom: 10px;
       }
 
       .countdown-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 8px;
         max-width: 100%;
       }
 
       .countdown-item {
-        padding: 12px 8px;
+        padding: 10px 6px;
       }
 
       .countdown-number {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
 
       .countdown-label {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
       }
 
       .wedding-selector {
@@ -565,7 +569,7 @@
 
     /* Countdown Styles */
     .countdown-container {
-      margin: 40px 0;
+      margin: 50px 0 40px 0;
       text-align: center;
     }
 
@@ -641,7 +645,7 @@
         background-attachment: scroll;
         background-position: center center;
         background-size: cover;
-        padding: 80px 15px 40px;
+        padding: 90px 15px 40px;
         min-height: 85vh;
       }
 
@@ -654,6 +658,7 @@
       .hero-content {
         position: relative;
         z-index: 2;
+        margin-top: 40px;
       }
 
 
@@ -670,32 +675,32 @@
       }
 
       .countdown-container {
-        margin: 15px 0;
+        margin: 12px 0;
       }
 
       .countdown-title {
-        font-size: 1rem;
-        margin-bottom: 10px;
+        font-size: 0.85rem;
+        margin-bottom: 8px;
       }
 
       .countdown-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        gap: 6px;
         max-width: 100%;
         padding: 0 5px;
       }
 
       .countdown-item {
-        padding: 10px 6px;
+        padding: 8px 5px;
       }
 
       .countdown-number {
-        font-size: 1.3rem;
+        font-size: 1rem;
       }
 
       .countdown-label {
-        font-size: 0.65rem;
-        margin-top: 3px;
+        font-size: 0.6rem;
+        margin-top: 2px;
       }
 
       .wedding-selector {
