@@ -477,17 +477,31 @@
         padding: 30px 20px;
       }
 
+      .countdown-container {
+        margin: 20px 0;
+      }
+
+      .countdown-title {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+      }
+
       .countdown-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        gap: 10px;
+        max-width: 100%;
       }
 
       .countdown-item {
-        padding: 15px 10px;
+        padding: 12px 8px;
       }
 
       .countdown-number {
-        font-size: 2rem;
+        font-size: 1.5rem;
+      }
+
+      .countdown-label {
+        font-size: 0.75rem;
       }
 
       .wedding-selector {
@@ -652,33 +666,36 @@
       .hero-content .date {
         font-size: 0.9rem;
         letter-spacing: 1px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
       }
 
       .countdown-container {
-        margin: 25px 0;
+        margin: 15px 0;
       }
 
       .countdown-title {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
+        font-size: 1rem;
+        margin-bottom: 10px;
       }
 
       .countdown-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 8px;
+        max-width: 100%;
+        padding: 0 5px;
       }
 
       .countdown-item {
-        padding: 12px 8px;
+        padding: 10px 6px;
       }
 
       .countdown-number {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
       }
 
       .countdown-label {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
+        margin-top: 3px;
       }
 
       .wedding-selector {
@@ -1082,7 +1099,7 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
 
       if (result === 'timeout') {
         // Request is taking too long, show success anyway and continue in background
-        alert('Danke! Deine Zusage wurde erhalten. 💜');
+        alert('Danke! Wir freuen uns auf dich 💜');
         form.reset();
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
