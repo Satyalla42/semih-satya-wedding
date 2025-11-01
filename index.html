@@ -7,19 +7,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --lavender-light: #E6E6FA;
-      --lavender-medium: #D8BFD8;
-      --lavender-dark: #9370DB;
-      --lavender-deep: #8A2BE2;
-      --lavender-accent: #B19CD9;
-      --dark-bg: #000000;
-      --dark-secondary: #1A1A1A;
-      --dark-tertiary: #2A2A2A;
-      --text-light: #FFFFFF;
-      --text-muted: #CCCCCC;
+      --eggplant: #6B1F57;
+      --eggplant-dark: #4A1540;
+      --plum: #9B7FA7;
+      --lilac: #D4B5E0;
+      --lilac-light: #E8D9F0;
+      --ivory: #FFFFF0;
+      --ivory-warm: #F9F6F0;
       --white: #FFFFFF;
-      --shadow: 0 4px 20px rgba(0,0,0,0.3);
-      --shadow-hover: 0 8px 30px rgba(0,0,0,0.4);
+      --text-dark: #2C2C2C;
+      --text-medium: #5A5A5A;
+      --text-light: #8B8B8B;
+      --shadow: 0 4px 20px rgba(107, 31, 87, 0.15);
+      --shadow-hover: 0 8px 30px rgba(107, 31, 87, 0.25);
     }
 
     * {
@@ -29,17 +29,15 @@
     }
 
     html {
-      background: url('Untitled design.png') no-repeat center center fixed;
-      background-size: cover;
-      background-attachment: fixed;
+      background: var(--ivory);
       min-height: 100%;
     }
 
     body {
       font-family: 'Source Sans Pro', sans-serif;
       line-height: 1.6;
-      color: var(--text-light);
-      background: transparent;
+      color: var(--text-dark);
+      background: var(--ivory);
       min-height: 100vh;
     }
 
@@ -48,11 +46,12 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       z-index: 1000;
       padding: 20px 0;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.8);
+      box-shadow: 0 2px 20px rgba(107, 31, 87, 0.1);
+      border-bottom: 1px solid var(--lilac-light);
     }
 
     .nav-container {
@@ -68,7 +67,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 24px;
       font-weight: 400;
-      color: #FFFFFF;
+      color: var(--eggplant);
       letter-spacing: 0.5px;
     }
 
@@ -80,7 +79,7 @@
 
     .nav-links a {
       text-decoration: none;
-      color: #FFFFFF;
+      color: var(--text-dark);
       font-weight: 400;
       font-size: 14px;
       letter-spacing: 1px;
@@ -90,7 +89,7 @@
     }
 
     .nav-links a:hover {
-      color: var(--lavender-light);
+      color: var(--eggplant);
     }
 
     .nav-links a::after {
@@ -100,7 +99,7 @@
       left: 0;
       width: 0;
       height: 1px;
-      background: var(--lavender-light);
+      background: var(--eggplant);
       transition: width 0.3s ease;
     }
 
@@ -117,7 +116,7 @@
     .mobile-menu span {
       width: 25px;
       height: 3px;
-      background: var(--gold-light);
+      background: var(--eggplant);
       margin: 3px 0;
       transition: 0.3s;
     }
@@ -132,7 +131,39 @@
       padding: 100px 20px 50px;
       padding-top: 120px;
       position: relative;
-      background: transparent;
+      background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .hero::before {
+      top: 10%;
+      left: 5%;
+      background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 20 Q120 40 130 70 Q140 100 120 130 Q100 160 80 140 Q60 120 70 90 Q80 60 100 40 Z' fill='%236B1F57'/%3E%3Cpath d='M90 50 Q100 60 105 80 Q110 100 100 115 Q90 130 80 120 Q70 110 75 90 Q80 70 90 60 Z' fill='%239B7FA7'/%3E%3Cpath d='M60 100 L70 90 L80 100 L90 95 L100 105 L90 115 L80 125 L70 115 Z' fill='%23D4B5E0'/%3E%3Cpath d='M140 100 L150 90 L160 100 L170 95 L180 105 L170 115 L160 125 L150 115 Z' fill='%23D4B5E0'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .hero::after {
+      bottom: 10%;
+      right: 5%;
+      background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 180 Q80 160 70 130 Q60 100 80 70 Q100 40 120 60 Q140 80 130 110 Q120 140 100 160 Z' fill='%236B1F57'/%3E%3Cpath d='M110 150 Q100 140 95 120 Q90 100 100 85 Q110 70 120 80 Q130 90 125 110 Q120 130 110 140 Z' fill='%239B7FA7'/%3E%3Cpath d='M60 100 L70 90 L80 100 L90 95 L100 105 L90 115 L80 125 L70 115 Z' fill='%23D4B5E0'/%3E%3Cpath d='M140 100 L150 90 L160 100 L170 95 L180 105 L170 115 L160 125 L150 115 Z' fill='%23D4B5E0'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
     }
 
 
@@ -144,19 +175,19 @@
       font-family: 'Playfair Display', serif;
       font-size: 4rem;
       font-weight: 400;
-      color: #FFFFFF;
+      color: var(--eggplant);
       margin-bottom: 20px;
       letter-spacing: 1px;
     }
 
     .hero-content .amp {
-      color: var(--lavender-light);
+      color: var(--plum);
       font-style: italic;
     }
 
     .hero-content .date {
       font-size: 1.1rem;
-      color: #CCCCCC;
+      color: var(--text-medium);
       margin-bottom: 30px;
       font-weight: 300;
       letter-spacing: 2px;
@@ -165,8 +196,8 @@
 
     .cta-button {
       display: inline-block;
-      background: var(--lavender-light);
-      color: #000000;
+      background: var(--eggplant);
+      color: var(--white);
       padding: 12px 24px;
       text-decoration: none;
       border-radius: 0;
@@ -175,12 +206,12 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       transition: all 0.3s ease;
-      border: 1px solid var(--lavender-light);
+      border: 1px solid var(--eggplant);
     }
 
     .cta-button:hover {
-      background: var(--lavender-medium);
-      border-color: var(--lavender-medium);
+      background: var(--eggplant-dark);
+      border-color: var(--eggplant-dark);
     }
 
     /* Container */
@@ -193,34 +224,49 @@
     /* Section Styling */
     .section {
       padding: 80px 0;
-      background: transparent;
+      background: var(--white);
       position: relative;
     }
 
     .section:nth-child(even) {
-      background: transparent;
+      background: var(--ivory-warm);
     }
 
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: 2.5rem;
       text-align: center;
-      color: #FFFFFF;
+      color: var(--eggplant);
       margin-bottom: 50px;
       position: relative;
       font-weight: 400;
       letter-spacing: 1px;
     }
 
+    .section-title::before,
     .section-title::after {
       content: '';
       position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
+      top: 50%;
+      width: 40px;
       height: 1px;
-      background: var(--lavender-light);
+      background: var(--plum);
+    }
+
+    .section-title::before {
+      left: calc(50% - 100px);
+    }
+
+    .section-title::after {
+      right: calc(50% - 100px);
+      left: auto;
+    }
+
+    .floral-decoration {
+      display: inline-block;
+      margin: 0 15px;
+      vertical-align: middle;
+      opacity: 0.6;
     }
 
     /* Our Story Section */
@@ -233,12 +279,12 @@
 
     .story-text {
       font-size: 1.1rem;
-      color: var(--text-muted);
+      color: var(--text-medium);
       line-height: 1.8;
     }
 
     .story-text h3 {
-      color: var(--lavender-light);
+      color: var(--eggplant);
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       margin-bottom: 15px;
@@ -272,38 +318,38 @@
     }
 
     .schedule-card {
-      background: var(--dark-tertiary);
+      background: var(--white);
       padding: 30px;
       border-radius: 8px;
       box-shadow: var(--shadow);
       text-align: center;
       transition: all 0.3s ease;
-      border: 1px solid var(--lavender-medium);
+      border: 2px solid var(--lilac-light);
     }
 
     .schedule-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-hover);
-      border-color: var(--lavender-light);
+      border-color: var(--plum);
     }
 
     .schedule-date {
       font-size: 1.2rem;
       font-weight: 600;
-      color: var(--lavender-light);
+      color: var(--eggplant);
       margin-bottom: 10px;
     }
 
     .schedule-location {
       font-size: 1rem;
-      color: var(--text-muted);
+      color: var(--text-medium);
       margin-bottom: 20px;
     }
 
     .schedule-time {
       font-size: 1.1rem;
       font-weight: 600;
-      color: var(--lavender-accent);
+      color: var(--plum);
     }
 
     /* Gallery Section */
@@ -319,12 +365,12 @@
       overflow: hidden;
       box-shadow: var(--shadow);
       transition: all 0.3s ease;
-      border: 1px solid var(--lavender-medium);
+      border: 2px solid var(--lilac-light);
     }
 
     .gallery-item:hover {
       transform: scale(1.05);
-      border-color: var(--lavender-light);
+      border-color: var(--plum);
       box-shadow: var(--shadow-hover);
     }
 
@@ -336,14 +382,14 @@
 
     /* RSVP Section */
     .rsvp-content {
-      background: var(--dark-tertiary);
+      background: var(--white);
       padding: 50px;
       border-radius: 8px;
       box-shadow: var(--shadow);
       text-align: center;
       max-width: 600px;
       margin: 0 auto;
-      border: 1px solid var(--lavender-medium);
+      border: 2px solid var(--lilac-light);
     }
 
     .rsvp-form {
@@ -360,7 +406,7 @@
       display: block;
       margin-bottom: 5px;
       font-weight: 600;
-      color: var(--lavender-light);
+      color: var(--eggplant);
     }
 
     .form-group input,
@@ -368,27 +414,27 @@
     .form-group textarea {
       width: 100%;
       padding: 12px;
-      border: 2px solid var(--dark-secondary);
+      border: 2px solid var(--lilac-light);
       border-radius: 10px;
       font-size: 1rem;
       transition: all 0.3s ease;
-      background: var(--dark-secondary);
-      color: var(--text-light);
+      background: var(--ivory);
+      color: var(--text-dark);
     }
 
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: var(--lavender-light);
-      box-shadow: 0 0 10px rgba(230, 230, 250, 0.3);
+      border-color: var(--plum);
+      box-shadow: 0 0 10px rgba(155, 127, 167, 0.3);
     }
 
     .submit-btn {
-      background: var(--lavender-light);
-      color: var(--dark-bg);
+      background: var(--eggplant);
+      color: var(--white);
       padding: 15px 30px;
-      border: 1px solid var(--lavender-medium);
+      border: 1px solid var(--eggplant);
       border-radius: 8px;
       font-size: 1.1rem;
       font-weight: 600;
@@ -398,7 +444,8 @@
     }
 
     .submit-btn:hover:not(:disabled) {
-      background: var(--lavender-accent);
+      background: var(--eggplant-dark);
+      border-color: var(--eggplant-dark);
       transform: translateY(-2px);
       box-shadow: var(--shadow-hover);
     }
@@ -411,26 +458,21 @@
 
     /* Footer */
     .footer {
-      background: transparent;
-      color: var(--lavender-light);
+      background: var(--ivory-warm);
+      color: var(--text-medium);
       text-align: center;
       padding: 40px 0;
-      border-top: 1px solid var(--lavender-light);
+      border-top: 1px solid var(--lilac-light);
     }
 
     /* Responsive Design */
     @media (max-width: 768px) {
       html {
-        background-attachment: fixed;
-        background-size: 180% auto;
-        background-position: center center;
-        background-repeat: no-repeat;
-        height: 100%;
-        width: 100%;
+        background: var(--ivory);
       }
 
       body {
-        background: rgba(0, 0, 0, 0.2);
+        background: var(--ivory);
       }
 
       .nav-links {
@@ -444,10 +486,12 @@
       .hero {
         min-height: 90vh;
         padding-top: 100px;
+        background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
       }
 
       .hero-content h1 {
         font-size: 2.5rem;
+        color: var(--eggplant);
       }
 
       .story-content {
@@ -575,7 +619,7 @@
     .countdown-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
-      color: var(--lavender-deep);
+      color: var(--eggplant);
       margin-bottom: 20px;
     }
 
@@ -588,26 +632,26 @@
     }
 
     .countdown-item {
-      background: var(--dark-tertiary);
+      background: var(--white);
       padding: 20px 15px;
       border-radius: 8px;
       box-shadow: var(--shadow);
       text-align: center;
-      border: 1px solid var(--lavender-medium);
+      border: 2px solid var(--lilac-light);
     }
 
     .countdown-number {
       font-family: 'Playfair Display', serif;
       font-size: 2.5rem;
       font-weight: 600;
-      color: var(--lavender-light);
+      color: var(--eggplant);
       display: block;
       line-height: 1;
     }
 
     .countdown-label {
       font-size: 0.9rem;
-      color: var(--text-muted);
+      color: var(--text-medium);
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-top: 5px;
@@ -618,9 +662,9 @@
     }
 
     .wedding-selector button {
-      background: var(--dark-secondary);
-      border: 1px solid var(--lavender-medium);
-      color: var(--lavender-light);
+      background: var(--white);
+      border: 2px solid var(--lilac-light);
+      color: var(--eggplant);
       padding: 10px 20px;
       margin: 0 10px;
       border-radius: 8px;
@@ -630,34 +674,31 @@
     }
 
     .wedding-selector button.active {
-      background: var(--lavender-light);
-      color: var(--dark-bg);
+      background: var(--eggplant);
+      color: var(--white);
+      border-color: var(--eggplant);
     }
 
     .wedding-selector button:hover {
-      background: var(--lavender-light);
-      color: var(--dark-bg);
+      background: var(--plum);
+      color: var(--white);
+      border-color: var(--plum);
     }
     /* Extra Mobile Tweaks */
     @media (max-width: 480px) {
       html {
-        background-attachment: fixed;
-        background-size: 200% auto;
-        background-position: center center;
-        background-repeat: no-repeat;
-        height: 100%;
-        width: 100%;
+        background: var(--ivory);
       }
 
       body {
-        background: rgba(0, 0, 0, 0.3);
+        background: var(--ivory);
         min-height: 100vh;
-        width: 100%;
       }
 
       .hero {
         padding: 90px 15px 40px;
         min-height: 85vh;
+        background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
       }
 
       .hero-content {
@@ -793,9 +834,12 @@
         top: 70px;
         right: 0;
         width: 100%;
-        background: rgba(0,0,0,0.95);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
         padding: 20px;
         gap: 15px;
+        border-bottom: 1px solid var(--lilac-light);
+        box-shadow: 0 4px 20px rgba(107, 31, 87, 0.1);
       }
 
       .nav-links.show {
@@ -805,6 +849,7 @@
       .nav-links a {
         font-size: 16px;
         text-align: center;
+        color: var(--text-dark);
       }
 
       .mobile-menu {
@@ -812,7 +857,7 @@
       }
 
       .mobile-menu span {
-        background: var(--lavender-light);
+        background: var(--eggplant);
       }
 
       .navbar {
@@ -909,13 +954,13 @@
           <div class="schedule-date">20. Juni 2026</div>
           <div class="schedule-location">Wald-Michelbach, Deutschland</div>
           <div class="schedule-time">Trauung & Feier</div>
-          <p style="margin-top: 15px; color: var(--text-light);">Feiert mit uns unsere erste Hochzeit in der wunderschönen deutschen Landschaft. Ein Tag voller Liebe, Lachen und unvergesslicher Erinnerungen.</p>
+          <p style="margin-top: 15px; color: var(--text-medium);">Feiert mit uns unsere erste Hochzeit in der wunderschönen deutschen Landschaft. Ein Tag voller Liebe, Lachen und unvergesslicher Erinnerungen.</p>
       </div>
         <div class="schedule-card">
           <div class="schedule-date">25. Juli 2026</div>
           <div class="schedule-location">Sarajevo, Bosnien und Herzegowina</div>
           <div class="schedule-time">Trauung & Feier</div>
-          <p style="margin-top: 15px; color: var(--text-light);">Unsere zweite Feier im Herzen von Sarajevo, umgeben von Familie und Freunden in dieser historischen und wunderschönen Stadt.</p>
+          <p style="margin-top: 15px; color: var(--text-medium);">Unsere zweite Feier im Herzen von Sarajevo, umgeben von Familie und Freunden in dieser historischen und wunderschönen Stadt.</p>
         </div>
       </div>
     </div>
