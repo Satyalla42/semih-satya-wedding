@@ -42,47 +42,6 @@
       position: relative;
     }
 
-    /* Fixed Corner Floral Decorations (Non-scrollable) - All 4 corners */
-    html::before,
-    html::after,
-    body::before,
-    body::after {
-      content: '';
-      position: fixed;
-      width: 350px;
-      height: 350px;
-      background-image: url('flower_border-removebg-preview.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      opacity: 0.25;
-      z-index: 999;
-      pointer-events: none;
-    }
-
-    html::before {
-      top: 0;
-      left: 0;
-      transform: rotate(0deg);
-    }
-
-    html::after {
-      top: 0;
-      right: 0;
-      transform: rotate(90deg);
-    }
-
-    body::before {
-      bottom: 0;
-      left: 0;
-      transform: rotate(-90deg);
-    }
-
-    body::after {
-      bottom: 0;
-      right: 0;
-      transform: rotate(180deg);
-    }
 
     /* Navigation */
     .navbar {
@@ -97,14 +56,73 @@
       border-bottom: 2px solid var(--lilac-light);
     }
 
+    /* Invitation Banner Below Navbar */
+    .invitation-banner {
+      position: fixed;
+      top: 150px;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      padding: 15px 20px;
+      text-align: center;
+      border-bottom: 2px solid var(--lilac-light);
+      box-shadow: 0 2px 10px rgba(107, 31, 87, 0.1);
+    }
+
+    .invitation-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: var(--eggplant);
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
 
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
       padding: 0 20px;
+      gap: 15px;
+    }
+
+    .navbar-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .nav-flower-divider {
+      width: 200px;
+      height: 40px;
+      background-image: url('flower_border-removebg-preview.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      margin: 10px 0;
+    }
+
+    .navbar-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .nav-container {
+      position: relative;
+    }
+
+    .nav-container .mobile-menu {
+      position: absolute;
+      top: 0;
+      right: 20px;
     }
 
     .logo {
@@ -173,7 +191,7 @@
       justify-content: center;
       text-align: center;
       padding: 100px 20px 50px;
-      padding-top: 120px;
+      padding-top: 330px;
       position: relative;
       background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
       overflow: hidden;
@@ -189,7 +207,7 @@
 
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 4rem;
+      font-size: 2.5rem;
       font-weight: 400;
       color: var(--eggplant);
       margin-bottom: 20px;
@@ -514,14 +532,23 @@
         background: var(--ivory);
       }
 
-      /* Tablet-optimized fixed flowers */
-      html::before,
-      html::after,
-      body::before,
-      body::after {
-        width: 280px;
-        height: 280px;
-        opacity: 0.22;
+      .navbar {
+        top: 0;
+      }
+
+      .nav-flower-divider {
+        width: 150px;
+        height: 30px;
+      }
+
+      /* Tablet invitation banner */
+      .invitation-banner {
+        top: 130px;
+        padding: 12px 15px;
+      }
+
+      .invitation-text {
+        font-size: 1.5rem;
       }
 
       .nav-links {
@@ -534,12 +561,12 @@
 
       .hero {
         min-height: 90vh;
-        padding-top: 100px;
+        padding-top: 300px;
         background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
       }
 
       .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
         color: var(--eggplant);
       }
 
@@ -792,12 +819,6 @@
         opacity: 0.15;
       }
 
-      body::before,
-      body::after {
-        width: 100px;
-        height: 100px;
-        opacity: 0.2;
-      }
 
 
       .hero-content h1 {
@@ -856,14 +877,28 @@
         margin-top: 10px;
       }
 
-      /* Mobile-optimized fixed flowers - bigger and visible */
-      html::before,
-      html::after,
-      body::before,
-      body::after {
-        width: 250px;
-        height: 250px;
-        opacity: 0.2;
+      .navbar {
+        top: 0;
+        padding: 15px 0;
+      }
+
+      .nav-container {
+        gap: 10px;
+      }
+
+      .nav-flower-divider {
+        width: 120px;
+        height: 25px;
+      }
+
+      /* Mobile invitation banner */
+      .invitation-banner {
+        top: 120px;
+        padding: 10px 12px;
+      }
+
+      .invitation-text {
+        font-size: 1.2rem;
       }
 
       .section {
@@ -872,11 +907,12 @@
 
       .hero {
         padding: 80px 15px 40px;
+        padding-top: 260px;
         min-height: 85vh;
       }
 
       .hero-content h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         line-height: 1.2;
       }
 
@@ -1000,14 +1036,19 @@
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="logo">Satya & Semih</div>
-      <ul class="nav-links">
-        <li><a href="#home">Start</a></li>
-        <li><a href="#story">Unsere Geschichte</a></li>
-        <li><a href="#schedule">Termine</a></li>
-        <li><a href="#gallery">Galerie</a></li>
-        <li><a href="#rsvp">Zusage</a></li>
-      </ul>
+      <div class="navbar-header">
+        <div class="logo">Satya & Semih</div>
+      </div>
+      <div class="nav-flower-divider"></div>
+      <div class="navbar-nav">
+        <ul class="nav-links">
+          <li><a href="#home">Start</a></li>
+          <li><a href="#story">Unsere Geschichte</a></li>
+          <li><a href="#schedule">Termine</a></li>
+          <li><a href="#gallery">Galerie</a></li>
+          <li><a href="#rsvp">Zusage</a></li>
+        </ul>
+      </div>
       <div class="mobile-menu">
         <span></span>
         <span></span>
@@ -1015,6 +1056,11 @@
       </div>
     </div>
   </nav>
+
+  <!-- Invitation Banner Below Navbar -->
+  <div class="invitation-banner">
+    <p class="invitation-text">Wir laden euch herzlich zu unserer Hochzeit ein!</p>
+  </div>
 
   <!-- Hero Section -->
   <section id="home" class="hero">
