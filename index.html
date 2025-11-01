@@ -74,31 +74,35 @@
       margin: 0 auto;
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       padding: 0 20px;
-      gap: 20px;
+      gap: 15px;
       position: relative;
     }
 
     .navbar-header {
       display: flex;
       align-items: center;
+      flex-shrink: 0;
     }
 
     .nav-flower-divider {
-      width: 80px;
-      height: 25px;
+      width: 120px;
+      height: 35px;
       background-image: url('flower_border-removebg-preview.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
       flex-shrink: 0;
+      margin: 0 auto;
     }
 
     .navbar-nav {
       display: flex;
       align-items: center;
+      flex-shrink: 0;
+      margin-left: auto;
     }
 
     .nav-container .mobile-menu {
@@ -322,6 +326,9 @@
       overflow: hidden;
       box-shadow: var(--shadow);
       background: var(--ivory);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .proposal-video {
@@ -526,7 +533,8 @@
       }
 
       .nav-container {
-        gap: 15px;
+        gap: 10px;
+        justify-content: space-between;
       }
 
       .logo {
@@ -534,8 +542,13 @@
       }
 
       .nav-flower-divider {
-        width: 60px;
-        height: 20px;
+        width: 90px;
+        height: 28px;
+        margin: 0 auto;
+      }
+
+      .navbar-nav {
+        margin-left: auto;
       }
 
       .nav-links {
@@ -607,7 +620,8 @@
       .story-video-container {
         max-width: 100%;
         margin: 0 auto;
-        width: calc(100% - 30px);
+        width: 100%;
+        padding: 0 15px;
       }
 
       .proposal-video {
@@ -907,9 +921,9 @@
       }
 
       .nav-container {
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 8px;
+        flex-wrap: nowrap;
+        justify-content: space-between;
       }
 
       .logo {
@@ -917,8 +931,13 @@
       }
 
       .nav-flower-divider {
-        width: 50px;
-        height: 18px;
+        width: 70px;
+        height: 22px;
+        margin: 0 auto;
+      }
+
+      .navbar-nav {
+        margin-left: auto;
       }
 
       .nav-links {
@@ -1005,8 +1024,11 @@
       .story-video-container {
         max-width: 100%;
         margin: 0 auto;
-        width: calc(100% - 20px);
+        width: 100%;
+        padding: 0 10px;
         border-radius: 15px;
+        display: flex;
+        justify-content: center;
       }
 
       .proposal-video {
@@ -1014,6 +1036,8 @@
         height: auto;
         max-height: 70vh;
         object-fit: contain;
+        display: block;
+        margin: 0 auto;
       }
 
       .gallery-grid {
