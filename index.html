@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Satya Fitz & Semih Kicara — Hochzeit 2026</title>
+  <title>Semih Kicara & Satya Fitz — Hochzeit 2026</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -314,45 +314,21 @@
     }
 
     /* Our Story Section */
-    .story-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .story-text {
-      font-size: 1.1rem;
-      color: var(--text-medium);
-      line-height: 1.8;
-    }
-
-    .story-text h3 {
-      color: var(--eggplant);
-      font-family: 'Dancing Script', cursive;
-      font-size: 2rem;
-      margin-bottom: 15px;
-      font-weight: 500;
-      letter-spacing: 1px;
-    }
-
-    .story-image {
+    .story-video-container {
       width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
       border-radius: 20px;
-      box-shadow: var(--shadow);
       overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--ivory);
     }
 
-    .story-image img {
-      border-radius: 20px;
-      overflow: hidden;
-      display: block;
+    .proposal-video {
       width: 100%;
       height: auto;
-      object-fit: contain;
-      background: transparent;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
+      display: block;
+      border-radius: 20px;
     }
 
     /* Schedule Section */
@@ -626,22 +602,14 @@
         height: 30px;
       }
 
-      .story-content {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .story-image {
-        width: 100%;
+      .story-video-container {
         max-width: 100%;
+        margin: 0 15px;
       }
 
-      .story-image img {
+      .proposal-video {
         width: 100%;
         height: auto;
-        min-height: 200px;
-        object-fit: contain;
-        display: block;
       }
 
       .section {
@@ -1031,33 +999,17 @@
       }
 
 
-      .story-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .story-text {
-        font-size: 1rem;
-      }
-
-      .story-text h3 {
-        font-size: 1.25rem;
-      }
-
-      .story-image {
-        width: 100%;
+      .story-video-container {
         max-width: 100%;
+        margin: 0 10px;
+        border-radius: 15px;
       }
 
-      .story-image img {
+      .proposal-video {
         width: 100%;
         height: auto;
-        min-height: 250px;
-        max-height: 400px;
+        max-height: 70vh;
         object-fit: contain;
-        object-position: center;
-        display: block;
-        background: transparent;
       }
 
       .gallery-grid {
@@ -1134,7 +1086,7 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="navbar-header">
-        <div class="logo">Satya & Semih</div>
+        <div class="logo">Semih & Satya</div>
       </div>
       <div class="nav-flower-divider"></div>
       <div class="navbar-nav">
@@ -1158,7 +1110,7 @@
   <section id="home" class="hero">
     <div class="hero-content">
       <p class="invitation-text">Wir laden euch herzlich zu unserer Hochzeit ein!</p>
-      <h1>Satya Fitz <span class="amp">&</span> Semih Kicara</h1>
+      <h1>Semih Kicara <span class="amp">&</span> Satya Fitz</h1>
       <div class="date">20. Juni 2026 • 25. Juli 2026</div>
       
       <!-- Countdown Timer -->
@@ -1208,15 +1160,12 @@
           <path d="M30 75 Q35 85 45 80 Q50 90 50 80 Q50 90 55 80 Q65 85 70 75 Q65 65 55 65 Q50 70 45 65 Q35 65 30 75 Z" fill="#D4B5E0" opacity="0.6"/>
         </svg>
       </h2>
-      <div class="story-content">
-        <div class="story-text">
-          <h3>Wie wir uns kennengelernt haben</h3>
-          <p>Satya und Semih haben sich auf Bumble kennengelernt, ohne endlose Nachrichten, einfach direkt und unkompliziert. Satya hat ihm gesagt, dass sie sich nach ihrem Urlaub melden würde, und genau das hat sie getan. Ihr erstes Date war sofort besonders, und von diesem Moment an haben sie jeden Tag miteinander verbracht, gelacht, geredet und einfach die Zeit miteinander genossen. Es fühlte sich von Anfang an so leicht und richtig an, als hätten sie sich schon ewig gekannt.</p>
-          <p>Trotz ihrer unterschiedlichen Hintergründe haben sie schnell erkannt, dass sie viel gemeinsam haben. Von diesem ersten Date an wurden sie unzertrennlich und der Rest ist Geschichte!</p>
-        </div>
-        <div class="story-image">
-          <img src="background_img_proposal.png" alt="Unser Antrag" loading="eager" decoding="async">
-        </div>
+      <div class="story-video-container">
+        <video class="proposal-video" autoplay muted loop playsinline>
+          <source src="proposal.mov" type="video/quicktime">
+          <source src="proposal.mov" type="video/mp4">
+          Dein Browser unterstützt dieses Video-Format nicht.
+        </video>
       </div>
     </div>
     </section>
@@ -1342,7 +1291,7 @@
   <footer class="footer">
     <div class="container">
       <p>Wir können es kaum erwarten, mit euch zu feiern! 💜</p>
-      <p style="margin-top: 10px; font-size: 0.9rem;">Satya Fitz & Semih Kicara</p>
+      <p style="margin-top: 10px; font-size: 0.9rem;">Semih Kicara & Satya Fitz</p>
   </div>
   </footer>
    <script>
