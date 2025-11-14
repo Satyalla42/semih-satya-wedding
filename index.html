@@ -613,6 +613,64 @@
       letter-spacing: 1px;
     }
 
+    /* Locations Section */
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      margin-top: 50px;
+    }
+
+    .location-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(3px);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      border: 2px solid var(--lilac-light);
+    }
+
+    .location-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--plum);
+    }
+
+    .location-title {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--eggplant);
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    .location-description {
+      font-family: 'Alta', sans-serif;
+      font-size: 1.1rem;
+      color: var(--text-medium);
+      line-height: 1.8;
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .location-map {
+      width: 100%;
+      height: 400px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid var(--lilac-light);
+      box-shadow: var(--shadow);
+    }
+
+    .location-map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
     /* Footer */
     .footer {
       background: var(--ivory-warm);
@@ -717,6 +775,15 @@
       .witness-image {
         width: 180px;
         height: 180px;
+      }
+
+      .locations-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .location-map {
+        height: 300px;
       }
 
       .witness-name {
@@ -1164,6 +1231,27 @@
         height: 150px;
       }
 
+      .locations-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .location-card {
+        padding: 20px;
+      }
+
+      .location-title {
+        font-size: 2rem;
+      }
+
+      .location-description {
+        font-size: 1rem;
+      }
+
+      .location-map {
+        height: 250px;
+      }
+
       .witness-name {
         font-size: 1.6rem;
       }
@@ -1408,15 +1496,12 @@
           <div class="schedule-location">Wald-Michelbach, Deutschland</div>
           <div class="schedule-time">Standesamt & Feier</div>
           <p style="margin-top: 15px; color: var(--text-medium);">Beim Standesamt in Wald-Michelbach geben wir uns das Ja-Wort.</p>
-          <p style="margin-top: 10px; color: var(--text-medium);">Am Abend feiern wir diesen besonderen Tag gemeinsam im Bürgerhaus in Siedelsbrunn – mit Liebe, Lachen und unvergesslichen Momenten.</p>
       </div>
         <div class="schedule-card">
           <div class="schedule-date">25. Juli 2026</div>
           <div class="schedule-location">Sarajevo, Bosnien und Herzegowina</div>
           <div class="schedule-time">Trauung & Feier</div>
           <p style="margin-top: 15px; color: var(--text-medium);">Unsere zweite Feier wird in Sarajevo stattfinden.</p>
-          <p style="margin-top: 10px; color: var(--text-medium);">Dort möchten wir unsere Kulturen und Familien zusammenbringen und gemeinsam feiern, was uns verbindet.</p>
-          <p style="margin-top: 10px; color: var(--text-medium);">Es soll ein Tag werden, an dem sich alle begegnen, kennenlernen und miteinander eine schöne Zeit verbringen.</p>
         </div>
       </div>
     </div>
@@ -1450,6 +1535,41 @@
             <img src="witness_img2.jpg" alt="Jan Kasperek">
           </div>
           <h3 class="witness-name">Jan Kasperek</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations Section -->
+  <section id="locations" class="section">
+    <div class="container">
+      <h2 class="section-title">
+        <svg class="floral-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 10 Q55 20 55 30 Q55 40 50 45 Q45 40 45 30 Q45 20 50 10 Z" fill="#9B7FA7" opacity="0.8"/>
+          <path d="M70 25 Q65 35 55 35 Q50 40 50 50 Q50 40 45 35 Q35 35 30 25 Q35 15 45 20 Q50 10 50 20 Q50 10 55 20 Q65 15 70 25 Z" fill="#6B1F57" opacity="0.7"/>
+          <path d="M30 25 Q35 15 45 20 Q50 10 50 20 Q50 10 55 20 Q65 15 70 25 Q65 35 55 35 Q50 30 45 35 Q35 35 30 25 Z" fill="#D4B5E0" opacity="0.6"/>
+        </svg>
+        Locations
+        <svg class="floral-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 90 Q55 80 55 70 Q55 60 50 55 Q45 60 45 70 Q45 80 50 90 Z" fill="#9B7FA7" opacity="0.8"/>
+          <path d="M70 75 Q65 65 55 65 Q50 60 50 50 Q50 60 45 65 Q35 65 30 75 Q35 85 45 80 Q50 90 50 80 Q50 90 55 80 Q65 85 70 75 Z" fill="#6B1F57" opacity="0.7"/>
+          <path d="M30 75 Q35 85 45 80 Q50 90 50 80 Q50 90 55 80 Q65 85 70 75 Q65 65 55 65 Q50 70 45 65 Q35 65 30 75 Z" fill="#D4B5E0" opacity="0.6"/>
+        </svg>
+      </h2>
+      <div class="locations-grid">
+        <div class="location-card">
+          <h3 class="location-title">Deutschland</h3>
+          <p class="location-description">Nach unserer standesamtlichen Trauung möchten wir diesen besonderen Moment mit euch im Bürgerhaus in Siedelsbrunn weiterfeiern. Ab 13 Uhr erwarten euch liebevoll zubereitetes Essen, Kuchen, Getränke und eine kleine Karaoke-Ecke für spontane Lieblingslieder. Umgeben vom Wald möchten wir mit euch in entspannter Atmosphäre zusammenkommen – auch eure Hunde sind herzlich willkommen.</p>
+          <div class="location-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2595.1234567890!2d8.8333!3d49.5667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDM0JzAwLjEiTiA4wrA1MCczOS44IkU!5e0!3m2!1sde!2sde!4v1234567890123!5m2!1sde!2sde" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+          </div>
+          <p style="margin-top: 15px; text-align: center;">
+            <a href="https://maps.app.goo.gl/tisT5jNDJZh75Hu28" target="_blank" style="color: var(--plum); text-decoration: none; font-family: 'Alta', sans-serif; font-size: 0.95rem; transition: color 0.3s ease;">📍 Auf Google Maps öffnen</a>
+          </p>
+        </div>
+        <div class="location-card">
+          <h3 class="location-title">Bosnien & Herzegowina</h3>
+          <p class="location-description" style="text-align: center; color: var(--text-light); font-style: italic;">Details folgen in Kürze</p>
         </div>
       </div>
     </div>
