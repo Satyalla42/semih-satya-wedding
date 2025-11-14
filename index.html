@@ -642,9 +642,29 @@
       font-size: 2.5rem;
       font-weight: 400;
       color: var(--eggplant);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       letter-spacing: 1px;
       text-align: center;
+    }
+
+    .location-date {
+      font-family: 'Alta', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--plum);
+      margin-bottom: 8px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .location-event-type {
+      font-family: 'Alta', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-medium);
+      margin-bottom: 20px;
+      text-align: center;
+      font-style: italic;
     }
 
     .location-description {
@@ -784,6 +804,14 @@
 
       .location-map {
         height: 300px;
+      }
+
+      .location-date {
+        font-size: 1.2rem;
+      }
+
+      .location-event-type {
+        font-size: 0.95rem;
       }
 
       .witness-name {
@@ -1244,6 +1272,14 @@
         font-size: 2rem;
       }
 
+      .location-date {
+        font-size: 1.1rem;
+      }
+
+      .location-event-type {
+        font-size: 0.9rem;
+      }
+
       .location-description {
         font-size: 1rem;
       }
@@ -1393,7 +1429,6 @@
         <ul class="nav-links">
           <li><a href="#home">Start</a></li>
           <li><a href="#story">Der Antrag</a></li>
-          <li><a href="#schedule">Termine</a></li>
           <li><a href="#gallery">Galerie</a></li>
           <li><a href="#rsvp">Zusage</a></li>
         </ul>
@@ -1474,39 +1509,6 @@
     </div>
     </section>
 
-  <!-- Schedule Section -->
-  <section id="schedule" class="section">
-    <div class="container">
-      <h2 class="section-title">
-        <svg class="floral-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 10 Q55 20 55 30 Q55 40 50 45 Q45 40 45 30 Q45 20 50 10 Z" fill="#9B7FA7" opacity="0.8"/>
-          <path d="M70 25 Q65 35 55 35 Q50 40 50 50 Q50 40 45 35 Q35 35 30 25 Q35 15 45 20 Q50 10 50 20 Q50 10 55 20 Q65 15 70 25 Z" fill="#6B1F57" opacity="0.7"/>
-          <path d="M30 25 Q35 15 45 20 Q50 10 50 20 Q50 10 55 20 Q65 15 70 25 Q65 35 55 35 Q50 30 45 35 Q35 35 30 25 Z" fill="#D4B5E0" opacity="0.6"/>
-        </svg>
-        Hochzeitstermine
-        <svg class="floral-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 90 Q55 80 55 70 Q55 60 50 55 Q45 60 45 70 Q45 80 50 90 Z" fill="#9B7FA7" opacity="0.8"/>
-          <path d="M70 75 Q65 65 55 65 Q50 60 50 50 Q50 60 45 65 Q35 65 30 75 Q35 85 45 80 Q50 90 50 80 Q50 90 55 80 Q65 85 70 75 Z" fill="#6B1F57" opacity="0.7"/>
-          <path d="M30 75 Q35 85 45 80 Q50 90 50 80 Q50 90 55 80 Q65 85 70 75 Q65 65 55 65 Q50 70 45 65 Q35 65 30 75 Z" fill="#D4B5E0" opacity="0.6"/>
-        </svg>
-      </h2>
-      <div class="schedule-grid">
-        <div class="schedule-card">
-          <div class="schedule-date">20. Juni 2026</div>
-          <div class="schedule-location">Wald-Michelbach, Deutschland</div>
-          <div class="schedule-time">Standesamt & Feier</div>
-          <p style="margin-top: 15px; color: var(--text-medium);">Beim Standesamt in Wald-Michelbach geben wir uns das Ja-Wort.</p>
-      </div>
-        <div class="schedule-card">
-          <div class="schedule-date">25. Juli 2026</div>
-          <div class="schedule-location">Sarajevo, Bosnien und Herzegowina</div>
-          <div class="schedule-time">Trauung & Feier</div>
-          <p style="margin-top: 15px; color: var(--text-medium);">Unsere zweite Feier wird in Sarajevo stattfinden.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Trauzeugen Section -->
   <section id="witnesses" class="section">
     <div class="container">
@@ -1559,6 +1561,8 @@
       <div class="locations-grid">
         <div class="location-card">
           <h3 class="location-title">Deutschland</h3>
+          <div class="location-date">20. Juni 2026</div>
+          <div class="location-event-type">Siedelsbrunn</div>
           <p class="location-description">Nach unserer standesamtlichen Trauung möchten wir diesen besonderen Moment mit euch im Bürgerhaus in Siedelsbrunn weiterfeiern. Ab 13 Uhr erwarten euch liebevoll zubereitetes Essen, Kuchen, Getränke und eine kleine Karaoke-Ecke für spontane Lieblingslieder. Umgeben vom Wald möchten wir mit euch in entspannter Atmosphäre zusammenkommen – auch eure Hunde sind herzlich willkommen.</p>
           <div class="location-map">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2595.1234567890!2d8.8333!3d49.5667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDM0JzAwLjEiTiA4wrA1MCczOS44IkU!5e0!3m2!1sde!2sde!4v1234567890123!5m2!1sde!2sde" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
@@ -1569,7 +1573,9 @@
         </div>
         <div class="location-card">
           <h3 class="location-title">Bosnien & Herzegowina</h3>
-          <p class="location-description" style="text-align: center; color: var(--text-light); font-style: italic;">Details folgen in Kürze</p>
+          <div class="location-date">25. Juli 2026</div>
+          <div class="location-event-type">Sarajevo</div>
+          <p class="location-description">In Sarajevo werden wir uns um die Organisation der Unterkünfte kümmern. Mehr Details kommen bald!</p>
         </div>
       </div>
     </div>
