@@ -692,8 +692,8 @@
       }
 
       .invitation-names {
-        font-size: 2.5rem;
-        letter-spacing: 2px;
+        font-size: 2rem;
+        letter-spacing: 1.5px;
       }
 
       .hero-content h1 {
@@ -1124,8 +1124,8 @@
       }
 
       .invitation-names {
-        font-size: 2rem;
-        letter-spacing: 1.5px;
+        font-size: 1.6rem;
+        letter-spacing: 1px;
       }
 
       .hero-content h1 {
@@ -1377,7 +1377,7 @@
         </svg>
       </h2>
       <div class="story-video-container">
-        <video class="proposal-video" autoplay muted loop playsinline>
+        <video class="proposal-video" autoplay muted loop playsinline preload="auto" webkit-playsinline>
           <source src="proposal.mov" type="video/quicktime">
           <source src="proposal.mov" type="video/mp4">
           Dein Browser unterstützt dieses Video-Format nicht.
@@ -1549,6 +1549,42 @@
    <script>
   const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz-4fWyLcA9sDsm3E5Uk03wQ4CysA55ixxPxWXKFY81EJrkiyhUknqFKYgJIp6L6_M8jA/exec';
 
+  // Video autoplay fix for mobile devices
+  document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('.proposal-video');
+    if (video) {
+      // Try to play the video
+      const playPromise = video.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Autoplay was prevented, try again on user interaction
+          document.addEventListener('touchstart', function playVideo() {
+            video.play().catch(() => {});
+            document.removeEventListener('touchstart', playVideo);
+          }, { once: true });
+          
+          // Also try on scroll
+          document.addEventListener('scroll', function playVideo() {
+            video.play().catch(() => {});
+            document.removeEventListener('scroll', playVideo);
+          }, { once: true });
+        });
+      }
+      
+      // Ensure video plays when it becomes visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      observer.observe(video);
+    }
+  });
+
 // Wedding dates
 const germanyDate = new Date('2026-06-20T15:00:00').getTime();
     const bosniaDate = new Date('2026-07-25T15:00:00').getTime();
@@ -1597,6 +1633,10 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
+    // Mobile menu toggle
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -1607,13 +1647,11 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
             behavior: 'smooth',
             block: 'start'
           });
+          // Close mobile menu when a nav link is clicked
+          navLinks.classList.remove('show');
         }
       });
     });
-
-    // Mobile menu toggle
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
 
     mobileMenu.addEventListener('click', () => {
       navLinks.classList.toggle('show');
