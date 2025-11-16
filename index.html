@@ -1723,6 +1723,43 @@
   </footer>
    <script>
   const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz-4fWyLcA9sDsm3E5Uk03wQ4CysA55ixxPxWXKFY81EJrkiyhUknqFKYgJIp6L6_M8jA/exec';
+  const RSVP_CHECK_ENDPOINT = RSVP_ENDPOINT + '?action=check'; // Endpoint to check for duplicates
+
+  // Cache of submitted emails to prevent duplicate submissions in the same session
+  const submittedEmails = new Set();
+
+  // Function to check if email already exists in the RSVP list
+  async function checkEmailExists(email) {
+    // Normalize email for comparison
+    const normalizedEmail = email.toLowerCase().trim();
+    
+    // First check local cache (submitted emails in this session)
+    if (submittedEmails.has(normalizedEmail)) {
+      return true;
+    }
+
+    // Try to check with the server (if the endpoint supports it)
+    // Note: This requires the Google Apps Script to support a 'check' action
+    // If not supported, we'll rely on server-side validation
+    try {
+      const checkUrl = `${RSVP_ENDPOINT}?action=check&email=${encodeURIComponent(email)}`;
+      const response = await fetch(checkUrl, {
+        method: 'GET',
+        mode: 'cors'
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        return result.exists === true;
+      }
+    } catch (err) {
+      // If check endpoint doesn't exist or fails, we'll proceed
+      // The server should handle duplicate checking
+      console.log('Duplicate check endpoint not available, proceeding with submission');
+    }
+
+    return false;
+  }
 
   // Video autoplay fix for mobile devices
   document.addEventListener('DOMContentLoaded', function() {
@@ -1855,12 +1892,34 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
       return;
     }
 
+    const formData = new FormData(form);
+    const email = formData.get('email');
+    const normalizedEmail = email ? email.toLowerCase().trim() : '';
+
+    // Check for duplicate email before submission
+    if (normalizedEmail) {
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Wird geprüft...';
+
+      const emailExists = await checkEmailExists(normalizedEmail);
+      
+      if (emailExists) {
+        alert('Diese E-Mail-Adresse wurde bereits für eine Zusage verwendet. Falls du deine Zusage ändern möchtest, kontaktiere uns bitte direkt.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        return;
+      }
+
+      // Re-enable button for actual submission
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+
     // Disable button and show loading state immediately
     submitBtn.disabled = true;
     const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Wird gesendet...';
-
-    const formData = new FormData(form);
 
     // Send with original field names - Apps Script maps these to German column headers
     // The n8n workflow reads from the sheet using the German column names
@@ -1885,7 +1944,29 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
         mode: 'cors'
       });
 
-      if (!response.ok) throw new Error('Failed to submit RSVP');
+      if (!response.ok) {
+        // Check if it's a duplicate error from the server
+        try {
+          const responseText = await response.text();
+          if (responseText.toLowerCase().includes('duplicate') || 
+              responseText.toLowerCase().includes('bereits') || 
+              responseText.toLowerCase().includes('schon') ||
+              responseText.toLowerCase().includes('existiert')) {
+            alert('Diese E-Mail-Adresse wurde bereits für eine Zusage verwendet. Falls du deine Zusage ändern möchtest, kontaktiere uns bitte direkt.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            return;
+          }
+        } catch (textErr) {
+          // If we can't read the response text, continue with normal error handling
+        }
+        throw new Error('Failed to submit RSVP');
+      }
+
+      // Add email to local cache to prevent duplicate submissions in this session
+      if (normalizedEmail) {
+        submittedEmails.add(normalizedEmail);
+      }
 
       alert('Danke! Deine Zusage wurde erhalten. 💜');
       form.reset();
@@ -1895,6 +1976,10 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
       // If there's an error, try once more with no-cors mode
       try {
         await fetch(RSVP_ENDPOINT, { method: 'POST', body: fd, mode: 'no-cors' });
+        // Add email to local cache even in no-cors mode
+        if (normalizedEmail) {
+          submittedEmails.add(normalizedEmail);
+        }
         alert('Deine Zusage wurde gesendet! Falls du keine Bestätigung siehst, lass es uns bitte wissen.');
       } catch (fallbackErr) {
         alert('Es gab ein Problem beim Senden. Bitte versuche es später erneut oder kontaktiere uns direkt.');
