@@ -1,0 +1,39 @@
+name: RSVP Email Workflow
+
+on:
+  schedule:
+    # Run every 2 minutes
+    - cron: '*/2 * * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  check-rsvps:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Create .env file
+        run: |
+          echo "GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }}" >> .env
+          echo "GOOGLE_SERVICE_ACCOUNT_KEY=service-account-key.json" >> .env
+          echo "GMAIL_USER=${{ secrets.GMAIL_USER }}" >> .env
+          echo "GMAIL_PASS=${{ secrets.GMAIL_PASS }}" >> .env
+      
+      - name: Create service account key file
+        run: |
+          printf '%s\n' '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > service-account-key.json
+      
+      - name: Run RSVP email workflow
+        run: node workflow.js
+
