@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Semih Kicara & Satya Fitz — Hochzeit 2026</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alta&family=Alex+Brush&display=swap" rel="stylesheet">
@@ -616,6 +617,44 @@
       color: var(--eggplant);
       margin-bottom: 10px;
       letter-spacing: 1px;
+    }
+
+    .fun-fact-button {
+      background: transparent;
+      border: 2px solid var(--lilac-light);
+      color: var(--plum);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+
+    .fun-fact-button:hover {
+      background: var(--lilac-light);
+      border-color: var(--plum);
+      transform: scale(1.1);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .fun-fact-text {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Locations Section */
@@ -1580,7 +1619,7 @@
           <h3 class="location-title">Bosnien & Herzegowina</h3>
           <div class="location-date">25. Juli 2026</div>
           <div class="location-event-type">Sarajevo</div>
-          <p class="location-description">In Sarajevo werden wir uns um die Organisation der Unterkünfte kümmern. Mehr Details kommen bald!</p>
+          <p class="location-description">Übernachtung in Sarajevo: Wir kümmern uns! 🏨<br><br>Für euren Aufenthalt in Sarajevo übernehmen wir die Organisation der Unterkünfte. Mehr Details dazu folgen in Kürze – keine Sorge!<br><br>Ihr müsst euch lediglich um eure Anreise kümmern (Flug, Bus oder Auto). ✈️🚗<br><br>Fühlt euch frei, auch schon ein paar Tage vor oder nach den Feierlichkeiten anzureisen, um die schöne Stadt noch etwas zu erkunden.<br><br>Wir reservieren Unterkünfte von Donnerstag, den 23.07 bis Mittwoch, den 29.07.2026. Solltet ihr länger oder kürzer bleiben wollen, schreibt uns gerne eine Nachricht über unser Kontaktformular oder per WhatsApp. Wir finden sicher eine Lösung! 🗓️💬</p>
         </div>
       </div>
     </div>
@@ -1788,6 +1827,19 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
       navLinks.classList.toggle('show');
     });
 
+    // Fun fact button
+    const funFactBtn = document.getElementById('fun-fact-btn');
+    const funFactText = document.getElementById('fun-fact-text');
+    if (funFactBtn && funFactText) {
+      funFactBtn.addEventListener('click', () => {
+        if (funFactText.style.display === 'none') {
+          funFactText.style.display = 'block';
+        } else {
+          funFactText.style.display = 'none';
+        }
+      });
+    }
+
   document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -1819,44 +1871,28 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
     const fd = new FormData();
     Object.keys(payload).forEach(key => fd.append(key, payload[key]));
 
-    // Create a timeout promise to ensure we show feedback even if request is slow
-    const timeoutPromise = new Promise((resolve) => {
-      setTimeout(() => resolve('timeout'), 1500); // 1.5 second timeout for faster feedback
-    });
-
     try {
-      // Race between fetch and timeout
-      const fetchPromise = fetch(RSVP_ENDPOINT, {
+      // Send the request
+      const response = await fetch(RSVP_ENDPOINT, {
         method: 'POST',
         body: fd,
         mode: 'cors'
       });
 
-      const result = await Promise.race([fetchPromise, timeoutPromise]);
-
-      if (result === 'timeout') {
-        // Request is taking too long, show success anyway and continue in background
-        alert('Danke! Wir freuen uns auf dich 💜');
-        form.reset();
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        
-        // Continue sending in background
-        fetch(RSVP_ENDPOINT, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
-        return;
-      }
-
-      const res = result;
-      if (!res.ok) throw new Error('Failed to submit RSVP');
+      if (!response.ok) throw new Error('Failed to submit RSVP');
 
       alert('Danke! Deine Zusage wurde erhalten. 💜');
       form.reset();
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
     } catch (err) {
-      // Fallback: no-cors mode (fire-and-forget)
-      fetch(RSVP_ENDPOINT, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
-      alert('Deine Zusage wurde gesendet! Falls du keine Bestätigung siehst, lass es uns bitte wissen.');
+      // If there's an error, try once more with no-cors mode
+      try {
+        await fetch(RSVP_ENDPOINT, { method: 'POST', body: fd, mode: 'no-cors' });
+        alert('Deine Zusage wurde gesendet! Falls du keine Bestätigung siehst, lass es uns bitte wissen.');
+      } catch (fallbackErr) {
+        alert('Es gab ein Problem beim Senden. Bitte versuche es später erneut oder kontaktiere uns direkt.');
+      }
       form.reset();
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
