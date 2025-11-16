@@ -1,6 +1,10 @@
+const fs = require('fs');
+const path = require('path');
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+
+const LAST_PROCESSED_ROW_FILE = path.join(__dirname, '.last-processed-row');
 
 // Google Sheets configuration
 const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;
@@ -10,8 +14,34 @@ const SHEET_NAME = 'Sheet1'; // Change if your sheet has a different name
 const GMAIL_USER = process.env.GMAIL_USER;
 const GMAIL_PASS = process.env.GMAIL_PASS;
 
-// Track the last processed row
-let lastProcessedRow = 0;
+// Load last processed row from file (persists between runs)
+function loadLastProcessedRow() {
+  try {
+    if (fs.existsSync(LAST_PROCESSED_ROW_FILE)) {
+      const content = fs.readFileSync(LAST_PROCESSED_ROW_FILE, 'utf8').trim();
+      const row = parseInt(content, 10);
+      return isNaN(row) ? 0 : row;
+    }
+  } catch (error) {
+    console.error('Error loading last processed row:', error);
+  }
+  return 0;
+}
+
+// Save last processed row to file
+function saveLastProcessedRow(row) {
+  try {
+    fs.writeFileSync(LAST_PROCESSED_ROW_FILE, row.toString(), 'utf8');
+  } catch (error) {
+    console.error('Error saving last processed row:', error);
+  }
+}
+
+// Track the last processed row (loaded from file)
+let lastProcessedRow = loadLastProcessedRow();
+
+// Track emails that have already received emails (to prevent duplicates)
+const processedEmails = new Set();
 
 // Initialize Google Sheets API
 async function getGoogleSheetsClient() {
@@ -110,11 +140,19 @@ async function checkForNewRows() {
       return;
     }
 
+    // Only process new rows (rows after lastProcessedRow)
+    if (rows.length <= lastProcessedRow + 1) {
+      console.log('No new rows to process');
+      return;
+    }
+
     // Skip header row and process only new rows
-    const newRows = rows.slice(Math.max(lastProcessedRow, 1));
+    const newRows = rows.slice(Math.max(lastProcessedRow + 1, 1));
+    
+    console.log(`Found ${newRows.length} new row(s) to process (starting from row ${lastProcessedRow + 2})`);
     
     for (let i = 0; i < newRows.length; i++) {
-      const rowIndex = lastProcessedRow + i + 1;
+      const rowIndex = lastProcessedRow + i + 2; // +2 because: lastProcessedRow is 0-indexed, +1 for header, +1 for next row
       const row = newRows[i];
       
       // Map row data (adjust indices based on your sheet structure)
@@ -126,32 +164,54 @@ async function checkForNewRows() {
       
       if (!email) {
         console.log(`Row ${rowIndex}: No email found, skipping`);
+        // Still update lastProcessedRow even if no email
+        lastProcessedRow = rowIndex - 1;
+        continue;
+      }
+
+      // Normalize email to lowercase for comparison
+      const emailLower = email.toLowerCase().trim();
+      
+      // Check if we've already sent an email to this address in this run
+      if (processedEmails.has(emailLower)) {
+        console.log(`Row ${rowIndex}: Email ${emailLower} already processed in this run, skipping to prevent duplicate`);
+        // Still update lastProcessedRow
+        lastProcessedRow = rowIndex - 1;
         continue;
       }
 
       console.log(`Processing row ${rowIndex}: ${name} (${email}) - ${zusage}`);
 
       // Check if "Zusage zu welcher Hochzeit?" equals "neither"
+      let emailSent = false;
       if (zusage.toLowerCase() === 'neither') {
         // Send "That's a pity" email
-        await sendEmail(
+        emailSent = await sendEmail(
           email,
           'Das ist schade! ',
           '<p>Das ist schade, dass du nicht kommen kannst.</p><p>Wir werden dich dort sehr vermissen!</p><p>🫶🏼</p>'
         );
       } else {
         // Send "Thank you for coming" email
-        await sendEmail(
+        emailSent = await sendEmail(
           email,
           'Vielen Dank für deine Zusage zu unserer Hochzeit 💍 ',
           '<p>Vielen lieben Dank für deine Antwort ☺️!</p> <p>Wir freuen uns riesig, dass du an unserem Hochzeitstag dabei sein wirst. Es bedeutet uns echt viel, diesen besonderen Tag nicht nur als Paar 👩🏻‍❤️‍💋‍👨🏽 zu erleben, sondern mit den Menschen zu feiern, die uns wichtig sind.</p> <p>Wir können es kaum erwarten, gemeinsam anzustoßen, zu tanzen und einfach eine richtig großartige Zeit miteinander zu haben. </p><p>Schön, dass du ein Teil davon sein wirst!💍👰🏻‍♀️🤵🏽🌷</p>'
         );
       }
+
+      // Mark email as processed only if email was sent successfully
+      if (emailSent) {
+        processedEmails.add(emailLower);
+        console.log(`Marked ${emailLower} as processed`);
+      }
+      
+      // Update last processed row after processing this row
+      lastProcessedRow = rowIndex - 1;
+      saveLastProcessedRow(lastProcessedRow);
     }
 
-    // Update last processed row
-    lastProcessedRow = rows.length - 1;
-    console.log(`Processed up to row ${lastProcessedRow}`);
+    console.log(`Finished processing. Last processed row: ${lastProcessedRow}`);
 
   } catch (error) {
     console.error('Error checking for new rows:', error);
