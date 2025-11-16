@@ -86,26 +86,39 @@ async function sendEmail(to, subject, message) {
   // Path to the image file
   const imagePath = path.join(__dirname, 'just_married.png');
   
-  const mailOptions = {
-    from: `"Satya & Semih" <${GMAIL_USER}>`,
-    to: to,
-    subject: subject,
-    html: message,
-    attachments: [
+  // Check if image file exists
+  let attachments = [];
+  if (fs.existsSync(imagePath)) {
+    attachments = [
       {
         filename: 'just_married.png',
         path: imagePath,
         cid: 'just_married_image' // Content-ID for inline image
       }
-    ]
+    ];
+    console.log(`Image file found at ${imagePath}`);
+  } else {
+    console.warn(`Image file not found at ${imagePath}, sending email without image`);
+  }
+  
+  const mailOptions = {
+    from: `"Satya & Semih" <${GMAIL_USER}>`,
+    to: to,
+    subject: subject,
+    html: message,
+    attachments: attachments
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Email sent successfully to ${to}`);
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`Email sent successfully to ${to}. Message ID: ${info.messageId}`);
     return true;
   } catch (error) {
     console.error(`Error sending email to ${to}:`, error);
+    console.error(`Error details:`, error.message);
+    if (error.response) {
+      console.error(`SMTP response:`, error.response);
+    }
     return false;
   }
 }
@@ -242,11 +255,23 @@ function startPolling() {
 
 // Run once (for GitHub Actions)
 async function runOnce() {
-  console.log('Running RSVP email check...');
+  console.log('=== Starting RSVP Email Workflow ===');
+  console.log(`Gmail User: ${GMAIL_USER ? 'Set' : 'NOT SET'}`);
+  console.log(`Gmail Pass: ${GMAIL_PASS ? 'Set' : 'NOT SET'}`);
+  console.log(`Spreadsheet ID: ${SPREADSHEET_ID ? 'Set' : 'NOT SET'}`);
+  console.log(`Last processed row: ${lastProcessedRow}`);
   console.log(`Monitoring sheet: ${SPREADSHEET_ID}`);
-  await checkForNewRows();
-  console.log('Check complete.');
-  process.exit(0);
+  
+  try {
+    await checkForNewRows();
+    console.log('=== Check complete ===');
+    process.exit(0);
+  } catch (error) {
+    console.error('=== Workflow failed ===');
+    console.error('Error:', error);
+    console.error('Stack:', error.stack);
+    process.exit(1);
+  }
 }
 
 // Start the workflow
