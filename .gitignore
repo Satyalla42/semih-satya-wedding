@@ -1,5 +1,10 @@
 node_modules/
 .env
 service-account-key.json
+wedding-n8n-*.json
+*.json
+!package.json
+!package-lock.json
 *.log
+.DS_Store
 
