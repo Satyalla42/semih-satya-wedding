@@ -83,11 +83,21 @@ function getGmailTransporter() {
 async function sendEmail(to, subject, message) {
   const transporter = getGmailTransporter();
   
+  // Path to the image file
+  const imagePath = path.join(__dirname, 'just_married.png');
+  
   const mailOptions = {
     from: `"Satya & Semih" <${GMAIL_USER}>`,
     to: to,
     subject: subject,
     html: message,
+    attachments: [
+      {
+        filename: 'just_married.png',
+        path: imagePath,
+        cid: 'just_married_image' // Content-ID for inline image
+      }
+    ]
   };
 
   try {
@@ -189,14 +199,14 @@ async function checkForNewRows() {
         emailSent = await sendEmail(
           email,
           'Das ist schade! ',
-          '<p>Das ist schade, dass du nicht kommen kannst.</p><p>Wir werden dich dort sehr vermissen!</p><p>🫶🏼</p>'
+          '<p>Das ist schade, dass du nicht kommen kannst.</p><p>Wir werden dich dort sehr vermissen!</p><p>🫶🏼</p><br><img src="cid:just_married_image" alt="Just Married" style="max-width: 100%; height: auto; margin: 20px 0;">'
         );
       } else {
         // Send "Thank you for coming" email
         emailSent = await sendEmail(
           email,
           'Vielen Dank für deine Zusage zu unserer Hochzeit 💍 ',
-          '<p>Vielen lieben Dank für deine Antwort ☺️!</p> <p>Wir freuen uns riesig, dass du an unserem Hochzeitstag dabei sein wirst. Es bedeutet uns echt viel, diesen besonderen Tag nicht nur als Paar 👩🏻‍❤️‍💋‍👨🏽 zu erleben, sondern mit den Menschen zu feiern, die uns wichtig sind.</p> <p>Wir können es kaum erwarten, gemeinsam anzustoßen, zu tanzen und einfach eine richtig großartige Zeit miteinander zu haben. </p><p>Schön, dass du ein Teil davon sein wirst!💍👰🏻‍♀️🤵🏽🌷</p>'
+          '<p>Vielen lieben Dank für deine Antwort ☺️!</p> <p>Wir freuen uns riesig, dass du an unserem Hochzeitstag dabei sein wirst. Es bedeutet uns echt viel, diesen besonderen Tag nicht nur als Paar 👩🏻‍❤️‍💋‍👨🏽 zu erleben, sondern mit den Menschen zu feiern, die uns wichtig sind.</p> <p>Wir können es kaum erwarten, gemeinsam anzustoßen, zu tanzen und einfach eine richtig großartige Zeit miteinander zu haben. </p><p>Schön, dass du ein Teil davon sein wirst!💍👰🏻‍♀️🤵🏽🌷</p><br><img src="cid:just_married_image" alt="Just Married" style="max-width: 100%; height: auto; margin: 20px 0;">'
         );
       }
 
