@@ -760,16 +760,16 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       html {
-        background: url('just_married.png') center center / 120% no-repeat scroll;
-        background-size: 120%;
-        -webkit-background-size: 120%;
+        background: url('just_married.png') center 30% / 100% no-repeat scroll;
+        background-size: 100%;
+        -webkit-background-size: 100%;
         background-color: var(--ivory);
       }
 
       body {
-        background: url('just_married.png') center center / 120% no-repeat scroll;
-        background-size: 120%;
-        -webkit-background-size: 120%;
+        background: url('just_married.png') center 30% / 100% no-repeat scroll;
+        background-size: 100%;
+        -webkit-background-size: 100%;
         background-color: var(--ivory);
       }
 
@@ -1120,24 +1120,32 @@
     /* Extra Mobile Tweaks */
     @media (max-width: 480px) {
       html {
-        background: url('just_married.png') center center / 130% no-repeat scroll;
-        background-size: 130%;
-        -webkit-background-size: 130%;
+        background: url('just_married.png') center 30% / 100% no-repeat scroll;
+        background-size: 100%;
+        -webkit-background-size: 100%;
         background-color: var(--ivory);
       }
 
       body {
-        background: url('just_married.png') center center / 130% no-repeat scroll;
-        background-size: 130%;
-        -webkit-background-size: 130%;
+        background: url('just_married.png') center 30% / 100% no-repeat scroll;
+        background-size: 100%;
+        -webkit-background-size: 100%;
         background-color: var(--ivory);
         min-height: 100vh;
       }
 
       .hero {
-        padding: 90px 15px 40px;
-        min-height: 85vh;
+        padding: 80px 15px 30px;
+        min-height: 100vh;
         background: transparent;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      
+      .hero-content {
+        width: 100%;
+        padding-top: 20px;
       }
 
       .hero::before,
@@ -1508,7 +1516,7 @@
   <section id="home" class="hero">
     <div class="hero-content">
       <div class="invitation-text">
-        <p class="invitation-greeting">Wir laden euch herzlich zu unserer Hochzeit ein</p>
+        <p class="invitation-greeting">Wir laden euch herzlich zu<br>unserer Hochzeit ein!</p>
         <p class="invitation-dates">20.06.2026 & 25.07.2026</p>
         <p class="invitation-names">Semih Kicara & Satya Fitz</p>
       </div>
