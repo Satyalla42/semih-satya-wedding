@@ -37,9 +37,7 @@
     }
 
     html {
-      background: url('just_married.png') center center / cover no-repeat fixed;
-      background-size: cover;
-      -webkit-background-size: cover;
+      background: var(--ivory);
       min-height: 100%;
     }
 
@@ -47,9 +45,7 @@
       font-family: 'Alta', sans-serif;
       line-height: 1.8;
       color: var(--text-dark);
-      background: url('just_married.png') center center / cover no-repeat fixed;
-      background-size: cover;
-      -webkit-background-size: cover;
+      background: var(--ivory);
       min-height: 100vh;
       position: relative;
       font-size: 18px;
@@ -246,7 +242,7 @@
       padding: 100px 20px 50px;
       padding-top: 80px;
       position: relative;
-      background: transparent;
+      background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
       overflow: hidden;
     }
 
@@ -318,12 +314,14 @@
     /* Section Styling */
     .section {
       padding: 80px 0;
-      background: transparent;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(2px);
       position: relative;
     }
 
     .section:nth-child(even) {
-      background: transparent;
+      background: rgba(249, 246, 240, 0.85);
+      backdrop-filter: blur(2px);
     }
 
     .section-title {
@@ -760,23 +758,11 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       html {
-        background-image: url('just_married.png');
-        background-position: center top;
-        background-size: auto 100vh;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        -webkit-background-size: auto 100vh;
-        background-color: var(--ivory);
+        background: var(--ivory);
       }
 
       body {
-        background-image: url('just_married.png');
-        background-position: center top;
-        background-size: auto 100vh;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        -webkit-background-size: auto 100vh;
-        background-color: var(--ivory);
+        background: var(--ivory);
       }
 
       .navbar {
@@ -825,25 +811,16 @@
       .invitation-greeting {
         font-size: 1.5rem;
         margin-bottom: 20px;
-        font-weight: 700;
-        color: var(--eggplant-dark);
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       }
 
       .invitation-dates {
         font-size: 1rem;
         margin-bottom: 20px;
-        font-weight: 700;
-        color: var(--eggplant-dark);
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       }
 
       .invitation-names {
         font-size: 2rem;
         letter-spacing: 1.5px;
-        font-weight: 700;
-        color: var(--eggplant-dark);
-        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
       }
 
       .hero-content h1 {
@@ -909,7 +886,7 @@
       .hero {
         min-height: 90vh;
         padding-top: 50px;
-        background: transparent;
+        background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
       }
 
       .hero-content h1 {
@@ -1135,38 +1112,18 @@
     /* Extra Mobile Tweaks */
     @media (max-width: 480px) {
       html {
-        background-image: url('just_married.png');
-        background-position: center top;
-        background-size: auto 100vh;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        -webkit-background-size: auto 100vh;
-        background-color: var(--ivory);
+        background: var(--ivory);
       }
 
       body {
-        background-image: url('just_married.png');
-        background-position: center top;
-        background-size: auto 100vh;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        -webkit-background-size: auto 100vh;
-        background-color: var(--ivory);
+        background: var(--ivory);
         min-height: 100vh;
       }
 
       .hero {
-        padding: 80px 15px 30px;
-        min-height: 100vh;
-        background: transparent;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-      }
-      
-      .hero-content {
-        width: 100%;
-        padding-top: 20px;
+        padding: 90px 15px 40px;
+        min-height: 85vh;
+        background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
       }
 
       .hero::before,
@@ -1302,26 +1259,17 @@
         font-size: 1.3rem;
         margin-bottom: 15px;
         line-height: 1.5;
-        font-weight: 700;
-        color: var(--eggplant-dark);
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       }
 
       .invitation-dates {
         font-size: 0.9rem;
         margin-bottom: 15px;
         letter-spacing: 1.5px;
-        font-weight: 700;
-        color: var(--eggplant-dark);
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       }
 
       .invitation-names {
         font-size: 1.6rem;
         letter-spacing: 1px;
-        font-weight: 700;
-        color: var(--eggplant-dark);
-        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
       }
 
       .hero-content h1 {
@@ -1545,8 +1493,10 @@
   <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="hero-content">
+      <img src="flower_border-removebg-preview.png" alt="Wedding Invitation" class="invitation-image">
+      
       <div class="invitation-text">
-        <p class="invitation-greeting">Wir laden euch herzlich zu<br>unserer Hochzeit ein!</p>
+        <p class="invitation-greeting">Wir laden euch herzlich zu unserer Hochzeit ein</p>
         <p class="invitation-dates">20.06.2026 & 25.07.2026</p>
         <p class="invitation-names">Semih Kicara & Satya Fitz</p>
       </div>
