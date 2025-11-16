@@ -15,12 +15,12 @@ Add these secrets:
    - Example: `1yS3U3m6A-NDCnAxYKfWp9LbLIMypP4f4lneSWmL0Sl8`
 
 2. **GOOGLE_SERVICE_ACCOUNT_KEY**
-   - Value: The entire contents of your `wedding-n8n-735d9813c721.json` file
+   - Value: The entire contents of your `xxx-735d9813c721.json` file
    - Copy and paste the entire JSON content
 
 3. **GMAIL_USER**
    - Value: Your Gmail address
-   - Example: `satya.fitz@gmail.com`
+   - Example: `x@gmail.com`
 
 4. **GMAIL_PASS**
    - Value: Your Gmail App Password (16 characters, no spaces)
