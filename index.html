@@ -1857,13 +1857,14 @@ const germanyDate = new Date('2026-06-20T15:00:00').getTime();
 
     const formData = new FormData(form);
 
-    // Optional: convert to JSON payload if needed
+    // Send with original field names - Apps Script maps these to German column headers
+    // The n8n workflow reads from the sheet using the German column names
     const payload = {
       name: formData.get('name'),
       email: formData.get('email'),
       attending: formData.get('attending'),
-      guests: formData.get('guests'),
-      message: formData.get('message'),
+      guests: formData.get('guests') || '1',
+      message: formData.get('message') || '',
       source: 'website'
     };
 
