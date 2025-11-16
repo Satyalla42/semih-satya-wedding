@@ -37,7 +37,7 @@
     }
 
     html {
-      background: var(--ivory);
+      background: url('just_married.png') center center / cover no-repeat fixed;
       min-height: 100%;
     }
 
@@ -45,7 +45,7 @@
       font-family: 'Alta', sans-serif;
       line-height: 1.8;
       color: var(--text-dark);
-      background: var(--ivory);
+      background: url('just_married.png') center center / cover no-repeat fixed;
       min-height: 100vh;
       position: relative;
       font-size: 18px;
@@ -242,7 +242,7 @@
       padding: 100px 20px 50px;
       padding-top: 80px;
       position: relative;
-      background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
+      background: transparent;
       overflow: hidden;
     }
 
@@ -314,14 +314,12 @@
     /* Section Styling */
     .section {
       padding: 80px 0;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(2px);
+      background: transparent;
       position: relative;
     }
 
     .section:nth-child(even) {
-      background: rgba(249, 246, 240, 0.85);
-      backdrop-filter: blur(2px);
+      background: transparent;
     }
 
     .section-title {
@@ -758,11 +756,11 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       html {
-        background: var(--ivory);
+        background: url('just_married.png') center center / cover no-repeat fixed;
       }
 
       body {
-        background: var(--ivory);
+        background: url('just_married.png') center center / cover no-repeat fixed;
       }
 
       .navbar {
@@ -886,7 +884,7 @@
       .hero {
         min-height: 90vh;
         padding-top: 50px;
-        background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
+        background: transparent;
       }
 
       .hero-content h1 {
@@ -1112,18 +1110,18 @@
     /* Extra Mobile Tweaks */
     @media (max-width: 480px) {
       html {
-        background: var(--ivory);
+        background: url('just_married.png') center center / cover no-repeat fixed;
       }
 
       body {
-        background: var(--ivory);
+        background: url('just_married.png') center center / cover no-repeat fixed;
         min-height: 100vh;
       }
 
       .hero {
         padding: 90px 15px 40px;
         min-height: 85vh;
-        background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
+        background: transparent;
       }
 
       .hero::before,
@@ -1493,8 +1491,6 @@
   <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="hero-content">
-      <img src="flower_border-removebg-preview.png" alt="Wedding Invitation" class="invitation-image">
-      
       <div class="invitation-text">
         <p class="invitation-greeting">Wir laden euch herzlich zu unserer Hochzeit ein</p>
         <p class="invitation-dates">20.06.2026 & 25.07.2026</p>
