@@ -108,14 +108,14 @@ async function sendEmail(to, subject, message) {
   const transporter = getGmailTransporter();
   
   // Path to the image file
-  const imagePath = path.join(__dirname, 'just_married.png');
+  const imagePath = path.join(__dirname, 'just_married2.png');
   
   // Check if image file exists
   let attachments = [];
   if (fs.existsSync(imagePath)) {
     attachments = [
       {
-        filename: 'just_married.png',
+        filename: 'just_married2.png',
         path: imagePath,
         cid: 'just_married_image' // Content-ID for inline image
       }
