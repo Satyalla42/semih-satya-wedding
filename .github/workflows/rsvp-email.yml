@@ -34,14 +34,16 @@ jobs:
         run: |
           printf '%s\n' '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > service-account-key.json
       
-      - name: Cache last processed row
+      - name: Cache workflow state
         uses: actions/cache@v4
-        id: cache-row
+        id: cache-state
         with:
-          path: .last-processed-row
-          key: last-processed-row
+          path: |
+            .last-processed-row
+            .row-count
+          key: workflow-state
           restore-keys: |
-            last-processed-row-
+            workflow-state-
       
       - name: Run RSVP email workflow
         run: node workflow.js

@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const LAST_PROCESSED_ROW_FILE = path.join(__dirname, '.last-processed-row');
+const ROW_COUNT_FILE = path.join(__dirname, '.row-count');
 
 // Google Sheets configuration
 const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;
@@ -34,6 +35,29 @@ function saveLastProcessedRow(row) {
     fs.writeFileSync(LAST_PROCESSED_ROW_FILE, row.toString(), 'utf8');
   } catch (error) {
     console.error('Error saving last processed row:', error);
+  }
+}
+
+// Load saved row count from file
+function loadRowCount() {
+  try {
+    if (fs.existsSync(ROW_COUNT_FILE)) {
+      const content = fs.readFileSync(ROW_COUNT_FILE, 'utf8').trim();
+      const count = parseInt(content, 10);
+      return isNaN(count) ? null : count;
+    }
+  } catch (error) {
+    console.error('Error loading row count:', error);
+  }
+  return null;
+}
+
+// Save row count to file
+function saveRowCount(count) {
+  try {
+    fs.writeFileSync(ROW_COUNT_FILE, count.toString(), 'utf8');
+  } catch (error) {
+    console.error('Error saving row count:', error);
   }
 }
 
@@ -163,9 +187,24 @@ async function checkForNewRows() {
       return;
     }
 
+    // Get current total row count (including header)
+    const currentRowCount = rows.length;
+    const savedRowCount = loadRowCount();
+    
+    console.log(`Current row count: ${currentRowCount}, Saved row count: ${savedRowCount || 'none'}`);
+    
+    // If row count has changed, reset lastProcessedRow to 0
+    if (savedRowCount !== null && savedRowCount !== currentRowCount) {
+      console.log(`Row count changed from ${savedRowCount} to ${currentRowCount}. Resetting lastProcessedRow to 0.`);
+      lastProcessedRow = 0;
+      saveLastProcessedRow(0);
+    }
+
     // Only process new rows (rows after lastProcessedRow)
     if (rows.length <= lastProcessedRow + 1) {
       console.log('No new rows to process');
+      // Still save the row count even if no new rows
+      saveRowCount(currentRowCount);
       return;
     }
 
@@ -235,6 +274,10 @@ async function checkForNewRows() {
     }
 
     console.log(`Finished processing. Last processed row: ${lastProcessedRow}`);
+    
+    // Save the current row count after processing
+    saveRowCount(currentRowCount);
+    console.log(`Saved row count: ${currentRowCount}`);
 
   } catch (error) {
     console.error('Error checking for new rows:', error);
