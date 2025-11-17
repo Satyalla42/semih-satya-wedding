@@ -9,4 +9,5 @@ wedding-n8n-*.json
 .DS_Store
 .last-processed-row
 .row-count
+.processed-emails.json
 

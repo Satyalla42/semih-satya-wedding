@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const LAST_PROCESSED_ROW_FILE = path.join(__dirname, '.last-processed-row');
 const ROW_COUNT_FILE = path.join(__dirname, '.row-count');
+const PROCESSED_EMAILS_FILE = path.join(__dirname, '.processed-emails.json');
 
 // Google Sheets configuration
 const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;
@@ -61,11 +62,40 @@ function saveRowCount(count) {
   }
 }
 
+// Load processed emails from file
+function loadProcessedEmails() {
+  try {
+    if (fs.existsSync(PROCESSED_EMAILS_FILE)) {
+      const content = fs.readFileSync(PROCESSED_EMAILS_FILE, 'utf8').trim();
+      if (content) {
+        const parsed = JSON.parse(content);
+        if (Array.isArray(parsed)) {
+          return new Set(parsed);
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error loading processed emails:', error);
+  }
+  return new Set();
+}
+
+// Save processed emails to file
+function saveProcessedEmails(emailSet) {
+  try {
+    const arr = Array.from(emailSet);
+    fs.writeFileSync(PROCESSED_EMAILS_FILE, JSON.stringify(arr, null, 2), 'utf8');
+  } catch (error) {
+    console.error('Error saving processed emails:', error);
+  }
+}
+
 // Track the last processed row (loaded from file)
 let lastProcessedRow = loadLastProcessedRow();
 
 // Track emails that have already received emails (to prevent duplicates)
 const processedEmails = new Set();
+const persistentProcessedEmails = loadProcessedEmails();
 
 // Initialize Google Sheets API
 async function getGoogleSheetsClient() {
@@ -234,9 +264,9 @@ async function checkForNewRows() {
       // Normalize email to lowercase for comparison
       const emailLower = email.toLowerCase().trim();
       
-      // Check if we've already sent an email to this address in this run
-      if (processedEmails.has(emailLower)) {
-        console.log(`Row ${rowIndex}: Email ${emailLower} already processed in this run, skipping to prevent duplicate`);
+      // Check if we've already sent an email to this address in this run or previous runs
+      if (processedEmails.has(emailLower) || persistentProcessedEmails.has(emailLower)) {
+        console.log(`Row ${rowIndex}: Email ${emailLower} already processed before, skipping to prevent duplicate`);
         // Still update lastProcessedRow
         lastProcessedRow = rowIndex - 1;
         continue;
@@ -265,6 +295,8 @@ async function checkForNewRows() {
       // Mark email as processed only if email was sent successfully
       if (emailSent) {
         processedEmails.add(emailLower);
+        persistentProcessedEmails.add(emailLower);
+        saveProcessedEmails(persistentProcessedEmails);
         console.log(`Marked ${emailLower} as processed`);
       }
       

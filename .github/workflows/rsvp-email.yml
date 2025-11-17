@@ -41,6 +41,7 @@ jobs:
           path: |
             .last-processed-row
             .row-count
+            .processed-emails.json
           key: workflow-state
           restore-keys: |
             workflow-state-
