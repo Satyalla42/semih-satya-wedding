@@ -46,6 +46,13 @@ jobs:
           restore-keys: |
             workflow-state-
       
+      - name: Reset last processed row counter to 5
+        run: |
+          # ONE-TIME RESET: This resets the counter to 5
+          # Remove or comment out this step after the first successful run to let the counter advance normally
+          echo "5" > .last-processed-row
+          echo "Reset last processed row to 5"
+      
       - name: Run RSVP email workflow
         run: node workflow.js
 
