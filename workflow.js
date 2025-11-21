@@ -5,7 +5,6 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const LAST_PROCESSED_ROW_FILE = path.join(__dirname, '.last-processed-row');
-const ROW_COUNT_FILE = path.join(__dirname, '.row-count');
 const PROCESSED_EMAILS_FILE = path.join(__dirname, '.processed-emails.json');
 
 // Google Sheets configuration
@@ -219,22 +218,13 @@ async function checkForNewRows() {
 
     // Get current total row count (including header)
     const currentRowCount = rows.length;
-    const savedRowCount = loadRowCount();
     
-    console.log(`Current row count: ${currentRowCount}, Saved row count: ${savedRowCount || 'none'}`);
-    
-    // If row count has changed, reset lastProcessedRow to 0
-    if (savedRowCount !== null && savedRowCount !== currentRowCount) {
-      console.log(`Row count changed from ${savedRowCount} to ${currentRowCount}. Resetting lastProcessedRow to 0.`);
-      lastProcessedRow = 0;
-      saveLastProcessedRow(0);
-    }
+    console.log(`Current row count: ${currentRowCount}, Last processed row: ${lastProcessedRow}`);
+    console.log(`Processed emails count: ${persistentProcessedEmails.size}`);
 
     // Only process new rows (rows after lastProcessedRow)
     if (rows.length <= lastProcessedRow + 1) {
       console.log('No new rows to process');
-      // Still save the row count even if no new rows
-      saveRowCount(currentRowCount);
       return;
     }
 
@@ -242,6 +232,8 @@ async function checkForNewRows() {
     const newRows = rows.slice(Math.max(lastProcessedRow + 1, 1));
     
     console.log(`Found ${newRows.length} new row(s) to process (starting from row ${lastProcessedRow + 2})`);
+    
+    let processedAnyNew = false;
     
     for (let i = 0; i < newRows.length; i++) {
       const rowIndex = lastProcessedRow + i + 2; // +2 because: lastProcessedRow is 0-indexed, +1 for header, +1 for next row
@@ -258,17 +250,19 @@ async function checkForNewRows() {
         console.log(`Row ${rowIndex}: No email found, skipping`);
         // Still update lastProcessedRow even if no email
         lastProcessedRow = rowIndex - 1;
+        saveLastProcessedRow(lastProcessedRow);
         continue;
       }
 
       // Normalize email to lowercase for comparison
       const emailLower = email.toLowerCase().trim();
       
-      // Check if we've already sent an email to this address in this run or previous runs
-      if (processedEmails.has(emailLower) || persistentProcessedEmails.has(emailLower)) {
+      // ALWAYS check if we've already sent an email to this address (primary duplicate prevention)
+      if (persistentProcessedEmails.has(emailLower) || processedEmails.has(emailLower)) {
         console.log(`Row ${rowIndex}: Email ${emailLower} already processed before, skipping to prevent duplicate`);
-        // Still update lastProcessedRow
+        // Still update lastProcessedRow to skip this row in future runs
         lastProcessedRow = rowIndex - 1;
+        saveLastProcessedRow(lastProcessedRow);
         continue;
       }
 
@@ -298,18 +292,20 @@ async function checkForNewRows() {
         persistentProcessedEmails.add(emailLower);
         saveProcessedEmails(persistentProcessedEmails);
         console.log(`Marked ${emailLower} as processed`);
+        processedAnyNew = true;
       }
       
-      // Update last processed row after processing this row
+      // Update last processed row after processing this row (whether email was sent or not)
       lastProcessedRow = rowIndex - 1;
       saveLastProcessedRow(lastProcessedRow);
     }
 
-    console.log(`Finished processing. Last processed row: ${lastProcessedRow}`);
-    
-    // Save the current row count after processing
-    saveRowCount(currentRowCount);
-    console.log(`Saved row count: ${currentRowCount}`);
+    if (processedAnyNew) {
+      console.log(`Finished processing. Last processed row: ${lastProcessedRow}`);
+      console.log(`Total processed emails: ${persistentProcessedEmails.size}`);
+    } else {
+      console.log(`No new emails sent. Last processed row: ${lastProcessedRow}`);
+    }
 
   } catch (error) {
     console.error('Error checking for new rows:', error);
