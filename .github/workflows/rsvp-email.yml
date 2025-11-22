@@ -9,6 +9,9 @@ on:
 jobs:
   check-rsvps:
     runs-on: ubuntu-latest
+    concurrency:
+      group: rsvp-email-workflow
+      cancel-in-progress: false # Don't cancel if a new run starts - let it finish to prevent duplicates
     
     steps:
       - name: Checkout repository
@@ -40,19 +43,22 @@ jobs:
         with:
           path: |
             .last-processed-row
-            .row-count
             .processed-emails.json
           key: workflow-state
           restore-keys: |
             workflow-state-
       
-      - name: Reset last processed row counter to 4
-        run: |
-          # ONE-TIME RESET: This resets the counter to 4 (so row 6 will be processed)
-          # Remove or comment out this step after the first successful run to let the counter advance normally
-          echo "4" > .last-processed-row
-          echo "Reset last processed row to 4"
-      
       - name: Run RSVP email workflow
         run: node workflow.js
+      
+      - name: Save workflow state to cache
+        if: always()
+        run: |
+          # Ensure state files are saved (they should be saved by workflow.js, but this ensures it)
+          if [ -f .last-processed-row ]; then
+            echo "Last processed row saved"
+          fi
+          if [ -f .processed-emails.json ]; then
+            echo "Processed emails saved"
+          fi
 

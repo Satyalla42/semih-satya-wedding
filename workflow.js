@@ -38,29 +38,6 @@ function saveLastProcessedRow(row) {
   }
 }
 
-// Load saved row count from file
-function loadRowCount() {
-  try {
-    if (fs.existsSync(ROW_COUNT_FILE)) {
-      const content = fs.readFileSync(ROW_COUNT_FILE, 'utf8').trim();
-      const count = parseInt(content, 10);
-      return isNaN(count) ? null : count;
-    }
-  } catch (error) {
-    console.error('Error loading row count:', error);
-  }
-  return null;
-}
-
-// Save row count to file
-function saveRowCount(count) {
-  try {
-    fs.writeFileSync(ROW_COUNT_FILE, count.toString(), 'utf8');
-  } catch (error) {
-    console.error('Error saving row count:', error);
-  }
-}
-
 // Load processed emails from file
 function loadProcessedEmails() {
   try {
@@ -179,6 +156,13 @@ async function sendEmail(to, subject, message) {
 // Check for new rows and process them
 async function checkForNewRows() {
   try {
+    // Reload processed emails at the start of each check to ensure we have the latest state
+    // This is especially important in GitHub Actions where cache might be restored
+    const latestProcessedEmails = loadProcessedEmails();
+    persistentProcessedEmails.clear();
+    latestProcessedEmails.forEach(email => persistentProcessedEmails.add(email));
+    console.log(`Loaded ${persistentProcessedEmails.size} processed emails from persistent storage`);
+    
     const sheets = await getGoogleSheetsClient();
     
     // Get all data from the sheet
@@ -223,8 +207,9 @@ async function checkForNewRows() {
     console.log(`Processed emails count: ${persistentProcessedEmails.size}`);
 
     // Only process new rows (rows after lastProcessedRow)
+    // Check if there are any rows after the last processed row
     if (rows.length <= lastProcessedRow + 1) {
-      console.log('No new rows to process');
+      console.log(`No new rows to process (rows.length: ${rows.length}, lastProcessedRow: ${lastProcessedRow})`);
       return;
     }
 
@@ -268,6 +253,13 @@ async function checkForNewRows() {
 
       console.log(`Processing row ${rowIndex}: ${name} (${email}) - ${zusage}`);
 
+      // CRITICAL: Mark email as processed IMMEDIATELY before sending to prevent race conditions
+      // This ensures that even if multiple workflow runs happen simultaneously, only one will send
+      processedEmails.add(emailLower);
+      persistentProcessedEmails.add(emailLower);
+      saveProcessedEmails(persistentProcessedEmails);
+      console.log(`Marked ${emailLower} as processed BEFORE sending (prevents duplicates)`);
+
       // Check if "Zusage zu welcher Hochzeit?" equals "neither"
       let emailSent = false;
       if (zusage.toLowerCase() === 'neither') {
@@ -286,13 +278,12 @@ async function checkForNewRows() {
         );
       }
 
-      // Mark email as processed only if email was sent successfully
+      // Log result (email already marked as processed above)
       if (emailSent) {
-        processedEmails.add(emailLower);
-        persistentProcessedEmails.add(emailLower);
-        saveProcessedEmails(persistentProcessedEmails);
-        console.log(`Marked ${emailLower} as processed`);
+        console.log(`Email sent successfully to ${emailLower}`);
         processedAnyNew = true;
+      } else {
+        console.error(`Failed to send email to ${emailLower}, but already marked as processed to prevent duplicates`);
       }
       
       // Update last processed row after processing this row (whether email was sent or not)
