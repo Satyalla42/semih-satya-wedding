@@ -2,10 +2,10 @@
   "name": "wedding-rsvp-workflow",
   "version": "1.0.0",
   "description": "Local workflow to process RSVP submissions and send emails",
-  "main": "workflow.js",
+  "main": "automation/workflow.js",
   "scripts": {
-    "start": "node workflow.js",
-    "dev": "nodemon workflow.js"
+    "start": "node automation/workflow.js",
+    "dev": "nodemon automation/workflow.js"
   },
   "keywords": [
     "wedding",

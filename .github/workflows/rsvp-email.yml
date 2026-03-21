@@ -49,7 +49,7 @@ jobs:
             workflow-state-
       
       - name: Run RSVP email workflow
-        run: node workflow.js
+        run: node automation/workflow.js
       
       - name: Save workflow state to cache
         if: always()

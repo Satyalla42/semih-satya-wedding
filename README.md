@@ -43,13 +43,22 @@ If you want to update the script or endpoint:
 - Update your `doPost` function or spreadsheet ID  
 - Update the endpoint URL inside `index.html` or your form JavaScript
 
+For the optional **Google Sheet → email** worker (GitHub Actions / `npm start`), see [`docs/README-workflow.md`](docs/README-workflow.md).
+
 ---
 
-## 📁 Project Structure
+## 📁 Project structure
 
-- `index.html` – Main landing page  
-- `Gallery_img*.jpg` – Gallery images  
-- `*.jpg` / `*.png` – Decorative images, backgrounds  
-- `proposal.mov` – Engagement/proposal video  
-- `package.json` – Optional build/tooling configuration  
-- Other static assets used by the site  
+| Path | Purpose |
+|------|---------|
+| `index.html` | Main site (GitHub Pages entry; keep at repo root with `CNAME`) |
+| `assets/images/backgrounds/` | UI backgrounds (e.g. navbar) |
+| `assets/images/hero/` | Hero / invitation art |
+| `assets/images/gallery/` | Gallery photos |
+| `assets/images/witnesses/` | Witness photos |
+| `assets/images/archive/` | Extra design assets not wired into the page |
+| `assets/media/` | Video (e.g. proposal clip) |
+| `automation/workflow.js` | RSVP sheet → email worker (used by GitHub Actions & `npm start`) |
+| `tools/` | Helper scripts (PDF invite, setup notes) |
+| `docs/` | Workflow / integration documentation |
+| `package.json` | Node deps for the RSVP automation |

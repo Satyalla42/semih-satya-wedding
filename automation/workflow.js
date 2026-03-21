@@ -4,8 +4,8 @@ const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const LAST_PROCESSED_ROW_FILE = path.join(__dirname, '.last-processed-row');
-const PROCESSED_EMAILS_FILE = path.join(__dirname, '.processed-emails.json');
+const LAST_PROCESSED_ROW_FILE = path.join(__dirname, '..', '.last-processed-row');
+const PROCESSED_EMAILS_FILE = path.join(__dirname, '..', '.processed-emails.json');
 
 // Google Sheets configuration
 const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;

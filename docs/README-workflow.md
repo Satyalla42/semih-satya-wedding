@@ -74,7 +74,7 @@ npm install
 
 ### 5. Update Sheet Name (if needed)
 
-If your Google Sheet tab is not named "Sheet1", update the `SHEET_NAME` constant in `workflow.js`:
+If your Google Sheet tab is not named "Sheet1", update the `SHEET_NAME` constant in `automation/workflow.js`:
 
 ```javascript
 const SHEET_NAME = 'YourSheetName';
@@ -98,7 +98,7 @@ For production use, consider:
 1. **Using PM2** to keep it running:
    ```bash
    npm install -g pm2
-   pm2 start workflow.js --name wedding-rsvp
+   pm2 start automation/workflow.js --name wedding-rsvp
    pm2 save
    pm2 startup
    ```
@@ -115,7 +115,7 @@ For production use, consider:
 
 - **No emails being sent**: Check Gmail app password and credentials
 - **Can't read sheet**: Verify service account has access to the sheet
-- **Wrong data being read**: Check column indices in `workflow.js` match your sheet structure
+- **Wrong data being read**: Check column indices in `automation/workflow.js` match your sheet structure
 
 ## Column Mapping
 
@@ -126,5 +126,5 @@ The workflow expects these columns in order:
 - Column D: Wie viele Gäste kommen?
 - Column E: Kommentar
 
-Adjust the indices in `workflow.js` if your columns are in a different order.
+Adjust the indices in `automation/workflow.js` if your columns are in a different order.
 
