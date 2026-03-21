@@ -740,6 +740,153 @@
       border: none;
     }
 
+    /* Siedelsbrunn — editorial vertical timeline */
+    .de-timeline {
+      margin: 28px 0 0;
+      padding: 28px 18px 36px;
+      background: var(--ivory-warm);
+      border: 1px solid rgba(44, 44, 44, 0.1);
+      border-radius: 8px;
+    }
+
+    .de-timeline-heading {
+      text-align: center;
+      margin: 0 0 32px;
+      color: var(--text-dark);
+      line-height: 1.25;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .de-timeline-heading-script {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.35rem;
+      color: var(--eggplant);
+      line-height: 1.1;
+    }
+
+    .de-timeline-heading-caps {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: none;
+      color: var(--text-dark);
+      margin-top: 2px;
+    }
+
+    .de-timeline-track {
+      position: relative;
+      max-width: 540px;
+      margin: 0 auto;
+      padding-bottom: 8px;
+    }
+
+    .de-timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 24px;
+      width: 1px;
+      background: var(--text-dark);
+      opacity: 0.88;
+      transform: translateX(-50%);
+    }
+
+    .de-timeline-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+      align-items: center;
+      min-height: 76px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .de-timeline-row + .de-timeline-row {
+      margin-top: 4px;
+    }
+
+    .de-timeline-center {
+      grid-column: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .de-timeline-node {
+      display: block;
+      width: 11px;
+      height: 11px;
+      border: 1px solid var(--text-dark);
+      border-radius: 50%;
+      background: var(--ivory-warm);
+      box-shadow: 0 0 0 3px var(--ivory-warm);
+    }
+
+    .de-timeline-side {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .de-timeline-icon {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      color: var(--text-dark);
+      opacity: 0.92;
+    }
+
+    .de-timeline-time {
+      display: block;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .de-timeline-desc {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-medium);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .de-timeline-row--right .de-timeline-side {
+      grid-column: 3;
+      justify-self: start;
+      text-align: left;
+      padding-left: 6px;
+    }
+
+    .de-timeline-row--left .de-timeline-side {
+      grid-column: 1;
+      justify-self: end;
+      text-align: right;
+      padding-right: 6px;
+    }
+
+    .de-timeline-row--left .de-timeline-icon {
+      order: 1;
+    }
+
+    .de-timeline-flourish {
+      display: block;
+      margin: 20px auto 0;
+      width: 72px;
+      height: auto;
+      color: var(--eggplant);
+      opacity: 0.35;
+    }
+
     /* Footer */
     .footer {
       background: var(--ivory-warm);
@@ -853,6 +1000,40 @@
 
       .location-map {
         height: 300px;
+      }
+
+      .de-timeline-line {
+        left: 18px;
+        transform: none;
+      }
+
+      .de-timeline-row {
+        grid-template-columns: 36px minmax(0, 1fr);
+      }
+
+      .de-timeline-row .de-timeline-spacer {
+        display: none;
+      }
+
+      .de-timeline-row--right .de-timeline-center,
+      .de-timeline-row--left .de-timeline-center {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+      }
+
+      .de-timeline-row--right .de-timeline-side,
+      .de-timeline-row--left .de-timeline-side {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: start;
+        text-align: left;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .de-timeline-row--left .de-timeline-icon {
+        order: -1;
       }
 
       .location-date {
@@ -1612,19 +1793,99 @@
           <h3 class="location-title">Deutschland</h3>
           <div class="location-date">20. Juni 2026</div>
           <div class="location-event-type">Siedelsbrunn</div>
-          <p class="location-description">Nach unserer standesamtlichen Trauung möchten wir diesen besonderen Moment mit euch im Bürgerhaus in Siedelsbrunn weiterfeiern. Ab 13 Uhr erwarten euch liebevoll zubereitetes Essen, Kuchen, Getränke und eine kleine Karaoke-Ecke für spontane Lieblingslieder. Umgeben vom Wald möchten wir mit euch in entspannter Atmosphäre zusammenkommen – auch eure Hunde sind herzlich willkommen.</p>
+          <p class="location-description">Nach der standesamtlichen Trauung würden wir uns freuen, diesen besonderen Tag mit euch im Bürgerhaus in Siedelsbrunn weiterzufeiern.<br><br>Ab 13 Uhr gibt es Essen, Kaffee und Kuchen sowie Getränke. In entspannter Atmosphäre möchten wir einfach zusammen sein, den Moment genießen und schöne Erinnerungen schaffen.<br><br>Für alle, die Lust haben, gibt es eine kleine Karaoke-Ecke – und zwischendurch spielen wir gemeinsam eine Runde Bingo.<br><br>Auch eure Hunde sind herzlich willkommen. 🐾<br><br>Busse fahren von Siedelsbrunn regelmäßig nach Weinheim, etwa jede Stunde bis ca. 23 Uhr. Taxis und Uber sind ebenfalls verfügbar.</p>
           <div class="location-map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2595.1234567890!2d8.8333!3d49.5667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDM0JzAwLjEiTiA4wrA1MCczOS44IkU!5e0!3m2!1sde!2sde!4v1234567890123!5m2!1sde!2sde" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2588.810366937126!2d8.8012002764073!3d49.544731071433404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4797dd628d6d0661%3A0x8b359898ef3b2da0!2sB%C3%BCrgerhaus%20Siedelsbrunn!5e0!3m2!1sde!2sde!4v1773938607253!5m2!1sde!2sde" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
           </div>
           <p style="margin-top: 15px; text-align: center;">
-            <a href="https://maps.app.goo.gl/tisT5jNDJZh75Hu28" target="_blank" style="color: var(--plum); text-decoration: none; font-family: 'Alta', sans-serif; font-size: 0.95rem; transition: color 0.3s ease;">📍 Auf Google Maps öffnen</a>
+            <a href="https://www.google.com/maps/place/B%C3%BCrgerhaus+Siedelsbrunn/@49.5447311,8.8012003,17z/data=!3m1!4b1!4m6!3m5!1s0x4797dd628d6d0661:0x8b359898ef3b2da0!8m2!3d49.5447311!4d8.8037752!16s%2Fg%2F11dxl2qr3j?entry=ttu&amp;g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color: var(--plum); text-decoration: none; font-family: 'Alta', sans-serif; font-size: 0.95rem; transition: color 0.3s ease;">📍 Auf Google Maps öffnen</a>
           </p>
+          <div class="de-timeline" aria-label="Tagesablauf Siedelsbrunn">
+            <p class="de-timeline-heading">
+              <span class="de-timeline-heading-script">Der</span><span class="de-timeline-heading-caps">Tagesablauf</span>
+            </p>
+            <div class="de-timeline-track">
+              <div class="de-timeline-line" aria-hidden="true"></div>
+
+              <div class="de-timeline-row de-timeline-row--right">
+                <div class="de-timeline-spacer" aria-hidden="true"></div>
+                <div class="de-timeline-center"><span class="de-timeline-node" aria-hidden="true"></span></div>
+                <div class="de-timeline-side">
+                  <svg class="de-timeline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 3v6a3 3 0 0 0 3 3 3 3 0 0 0 3-3V3" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 9v11M6 22h6" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 3v6a3 3 0 0 0 3 3 3 3 0 0 0 3-3V3" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 9v11M12 22h6" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <div>
+                    <time class="de-timeline-time" datetime="13:00">13:00 Uhr</time>
+                    <p class="de-timeline-desc">Sektempfang</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="de-timeline-row de-timeline-row--left">
+                <div class="de-timeline-side">
+                  <div>
+                    <time class="de-timeline-time" datetime="13:30">13:30 – 14:30 Uhr</time>
+                    <p class="de-timeline-desc">Fotos</p>
+                  </div>
+                  <svg class="de-timeline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="13" r="3.25" stroke="currentColor" stroke-width="1.15"/>
+                  </svg>
+                </div>
+                <div class="de-timeline-center"><span class="de-timeline-node" aria-hidden="true"></span></div>
+                <div class="de-timeline-spacer" aria-hidden="true"></div>
+              </div>
+
+              <div class="de-timeline-row de-timeline-row--right">
+                <div class="de-timeline-spacer" aria-hidden="true"></div>
+                <div class="de-timeline-center"><span class="de-timeline-node" aria-hidden="true"></span></div>
+                <div class="de-timeline-side">
+                  <svg class="de-timeline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 2v10a3 3 0 0 0 6 0V2" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 12v10M5 22h6" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17 2v18M17 2l2 7M17 2l-2 7" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <div>
+                    <time class="de-timeline-time" datetime="14:30">14:30 Uhr</time>
+                    <p class="de-timeline-desc">Büffet</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="de-timeline-row de-timeline-row--left">
+                <div class="de-timeline-side">
+                  <div>
+                    <time class="de-timeline-time">ab 15:30 Uhr</time>
+                    <p class="de-timeline-desc">Karaoke / Musik</p>
+                  </div>
+                  <svg class="de-timeline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 14a4 4 0 0 0 4-4V6a4 4 0 1 0-8 0v4a4 4 0 0 0 4 4z" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+                    <path d="M12 14v5M8 22h8" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="de-timeline-center"><span class="de-timeline-node" aria-hidden="true"></span></div>
+                <div class="de-timeline-spacer" aria-hidden="true"></div>
+              </div>
+
+              <svg class="de-timeline-flourish" viewBox="0 0 88 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round">
+                <path d="M8 14 Q22 6 44 10 T80 14"/>
+                <path d="M44 10v7"/>
+              </svg>
+            </div>
+          </div>
+
         </div>
         <div class="location-card">
           <h3 class="location-title">Bosnien & Herzegowina</h3>
           <div class="location-date">25. Juli 2026</div>
           <div class="location-event-type">Sarajevo</div>
-          <p class="location-description">Übernachtung in Sarajevo: Wir kümmern uns! 🏨<br><br>Für euren Aufenthalt in Sarajevo übernehmen wir die Organisation der Unterkünfte. Mehr Details dazu folgen in Kürze – keine Sorge!<br><br>Ihr müsst euch lediglich um eure Anreise kümmern (Flug, Bus oder Auto). ✈️🚗<br><br>Fühlt euch frei, auch schon ein paar Tage vor oder nach den Feierlichkeiten anzureisen, um die schöne Stadt noch etwas zu erkunden.<br><br>Wir reservieren Unterkünfte von Donnerstag, den 23.07 bis Mittwoch, den 29.07.2026. Solltet ihr länger oder kürzer bleiben wollen, schreibt uns gerne eine Nachricht über unser Kontaktformular oder per WhatsApp. Wir finden sicher eine Lösung! 🗓️💬</p>
+          <p class="location-description">In Sarajevo feiern wir unsere Hochzeit im Restaurant Park Princeva. Für eure Unterkunft empfehlen wir eine Lage in der Nähe von Baščaršija. Von dort aus erreicht ihr das Restaurant in wenigen Minuten mit dem Taxi und seid gleichzeitig direkt in der Innenstadt, perfekt für Sightseeing.<br><br>Wir kümmern uns gerne um die Buchung der Unterkünfte für euch. Die Bezahlung erfolgt dann vor Ort durch euch.<br><br>Kommt gerne ein oder zwei Tage früher oder bleibt noch etwas länger, um diese wunderschöne Stadt in Ruhe zu entdecken.<br><br>Für die Einreise nach Bosnien reicht übrigens ein Personalausweis völlig aus.</p>
+          <div class="location-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2877.1069125424087!2d18.433766776079715!3d43.85361267109329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4758c8b97e7b010d%3A0x64ce8e8e9cedd22c!2sPark%20Prin%C4%8Deva!5e0!3m2!1sde!2sde!4v1773938709216!5m2!1sde!2sde" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;"></iframe>
+          </div>
         </div>
       </div>
     </div>
